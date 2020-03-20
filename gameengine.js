@@ -64,26 +64,16 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 	this.ctx.canvas.addEventListener("mousemove", function (e) {
-		//console.log(e.clientX + " " + e.clientY);
-		that.stBtnHover = e.clientX < 894 || e.clientX > 1240 || e.clientY < 65 || e.clientY > 203 ? false : true;
-		that.contBtnHover = e.clientX < 284 || e.clientX > 631 || e.clientY < 427 || e.clientY > 566 ? false : true;
-		that.endBtnHover = e.clientX < 645 || e.clientX > 1021 || e.clientY < 427 || e.clientY > 566 ? false : true;
-		that.winBtnHover = e.clientX < 894 || e.clientX > 1240 || e.clientY < 65 || e.clientY > 203 ? false : true;
+		console.log(e.clientX + " " + e.clientY);
 	
 	}, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {	
 		if (String.fromCharCode(e.which) === 'W') that.w = true;
-			if (String.fromCharCode(e.which) === 'D') that.right = true;
-			if (String.fromCharCode(e.which) === 'A') that.left = true;
-			if (String.fromCharCode(e.which) === 'S') that.down = true;
+			if (String.fromCharCode(e.which) === 'D') that.d = true;
+			if (String.fromCharCode(e.which) === 'A') that.a = true;
+			if (String.fromCharCode(e.which) === 'S') that.s = true;
 			if (String.fromCharCode(e.which) === ' ') that.space = true;
-			if (String.fromCharCode(e.which) === 'M') {
-				that.m = e.repeat ? false : true
-				if (that.m) {
-					that.mute = !that.mute;
-				}
-			}
 			
 			e.preventDefault();
     }, false);
@@ -92,12 +82,11 @@ GameEngine.prototype.startInput = function () {
 		that.mouseTimer = 0;
 	}, false);
 	this.ctx.canvas.addEventListener("keyup", function(e) {
-		if (String.fromCharCode(e.which) === 'D') that.right = false;
-		if (String.fromCharCode(e.which) === 'A') that.left = false;
-		if (String.fromCharCode(e.which) === 'S') that.down = false;
-		if (String.fromCharCode(e.which) === ' ') that.down = false;
+		if (String.fromCharCode(e.which) === 'D') that.d = false;
+		if (String.fromCharCode(e.which) === 'A') that.a = false;
+		if (String.fromCharCode(e.which) === 'S') that.s = false;
+		if (String.fromCharCode(e.which) === ' ') that.space = false;
 		if (String.fromCharCode(e.which) === 'W') that.w = false;
-		if (String.fromCharCode(e.which) === 'M') that.m = false;
 		check = false;
 	}, false);
 }
@@ -124,7 +113,6 @@ GameEngine.prototype.update = function () {
 		this.mouseTimer = 0;
 	}
     var entitiesCount = this.entities.length;
-	this.camera.update();
     for (var i = 0; i < entitiesCount; i++) {
         var entity = this.entities[i];
         if (!entity.removeFromWorld) {
@@ -142,8 +130,6 @@ GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
     this.update();
     this.draw();
-    this.w = null;
-	this.space = null;
 }
 
 function Entity(game, x, y) {

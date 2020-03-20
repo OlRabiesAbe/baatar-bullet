@@ -55,7 +55,7 @@ Animation.prototype.isDone = function () {
 
 var ASSET_MANAGER = new AssetManager();
 
-//ASSET_MANAGER.queueDownload("");
+ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
 
 ASSET_MANAGER.downloadAll(function () {
     console.log("init phase");
@@ -63,6 +63,8 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
+	var baatar = new Baatar(gameEngine);
+	gameEngine.addEntity(baatar);
 	
     gameEngine.init(ctx);
 	gameEngine.start();
