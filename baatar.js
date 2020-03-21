@@ -3,19 +3,19 @@ Baatar.prototype = new Entity();
 function Baatar(game) {
 	this.game = game;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
-	this.x = 50;
-	this.y = 50;
+	this.x = 50; this.y = 50;
+	this.width = 32; this.height = 64;
 	
 	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
 	this.hspeed = 0;
-	this.MAX_HSPEED = 13;
-	this.HACCEL = 2;
+	this.MAX_HSPEED = 8;
+	this.HACCEL = 1;
 	this.HDECCEL = this.HACCEL;
 	
 	//suite of variables for the vertical movement		(ALL_CAPS = psuedo constant)
 	this.vspeed = 0;
-	this.MAX_VSPEED = 13;
-	this.VACCEL = 2;
+	this.MAX_VSPEED = 8;
+	this.VACCEL = 1;
 	this.VDECCEL = this.VACCEL;
 }
 
@@ -63,5 +63,5 @@ Baatar.prototype.update = function() {
 }
 
 Baatar.prototype.draw = function(ctx) {
-	this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y);
+	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }

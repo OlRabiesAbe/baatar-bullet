@@ -30,7 +30,8 @@ Timer.prototype.tick = function () {
 
 function GameEngine() {
 	this.entities = [];
-	this.otherEntities = [];
+	this.tiles = [];
+	this.allEntities = [];
     this.showOutlines = false;
     this.ctx = null;
     this.click = null;
@@ -64,7 +65,7 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 	this.ctx.canvas.addEventListener("mousemove", function (e) {
-		console.log(e.clientX + " " + e.clientY);
+		//console.log(e.clientX + " " + e.clientY);
 	
 	}, false);
 
@@ -82,11 +83,11 @@ GameEngine.prototype.startInput = function () {
 		that.mouseTimer = 0;
 	}, false);
 	this.ctx.canvas.addEventListener("keyup", function(e) {
+		if (String.fromCharCode(e.which) === 'W') that.w = false;
 		if (String.fromCharCode(e.which) === 'D') that.d = false;
 		if (String.fromCharCode(e.which) === 'A') that.a = false;
 		if (String.fromCharCode(e.which) === 'S') that.s = false;
 		if (String.fromCharCode(e.which) === ' ') that.space = false;
-		if (String.fromCharCode(e.which) === 'W') that.w = false;
 		check = false;
 	}, false);
 }
@@ -94,12 +95,20 @@ GameEngine.prototype.startInput = function () {
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
 	this.entities.push(entity);
-    this.otherEntities.push(entity);
+    this.allEntities.push(entity);
+}
+GameEngine.prototype.addTile = function (entity) {
+    console.log('added entity');
+	this.tiles.push(entity);
+    this.allEntities.push(entity);
 }
 
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.save();
+	for (var i = 0; i < this.tiles.length; i++) {
+        this.tiles[i].draw(this.ctx);
+    }
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw(this.ctx);
     }
@@ -112,16 +121,16 @@ GameEngine.prototype.update = function () {
 		this.click = false;
 		this.mouseTimer = 0;
 	}
-    var entitiesCount = this.entities.length;
-    for (var i = 0; i < entitiesCount; i++) {
+    for (var i = 0; i < this.entities.length; i++) {
         var entity = this.entities[i];
         if (!entity.removeFromWorld) {
             entity.update();
         }
     }
-    for (var i = entitiesCount - 1; i >= 0; --i) {
-        if (this.entities[i].removeFromWorld) {
-            this.entities.splice(i, 1);
+	for (var i = 0; i < this.tiles.length; i++) {
+        var entity = this.tiles[i];
+        if (!entity.removeFromWorld) {
+            entity.update();
         }
     }
 }

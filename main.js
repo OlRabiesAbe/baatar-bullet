@@ -56,6 +56,8 @@ Animation.prototype.isDone = function () {
 var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
+ASSET_MANAGER.queueDownload("./img/tile_temp.png");
+
 
 ASSET_MANAGER.downloadAll(function () {
     console.log("init phase");
@@ -63,8 +65,35 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
+	var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 400, 800);
+	gameEngine.addTile(tile);
+	for(var i = 0; i < 8; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400);
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 8; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400 + 128);
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 5; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200, 200 + (i*64));
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 5; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200);
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 5; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200 + (64 * 5));
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 5; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200 + (i*64), 200);
+		gameEngine.addTile(tile);
+	}
 	var baatar = new Baatar(gameEngine);
 	gameEngine.addEntity(baatar);
+	
 	
     gameEngine.init(ctx);
 	gameEngine.start();
