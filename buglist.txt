@@ -1,2 +1,3 @@
-  1) when you walk at a tile where your bottom is on the same y plane as the lower half of a tile, you kind of zoop to be below the tile,
-the issue is to do with tile.js and collision detection
+  ~~1) when you walk at a tile where your bottom is on the same y plane as the lower half of a tile, you kind of zoop to be below the tile,
+the issue is to do with tile.js and collision detection~~
+  2) when two tile are oriented kitty corner (their corners touching, like a checkerboard) the player can pass through the corner from the higher space to the lower space. this should not be possible
