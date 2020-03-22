@@ -1,10 +1,10 @@
-[3/20/2020]  1̶)̶ ̶w̶h̶e̶n̶ ̶y̶o̶u̶ ̶w̶a̶l̶k̶ ̶a̶t̶ ̶a̶ ̶t̶i̶l̶e̶ ̶w̶h̶e̶r̶e̶ ̶y̶o̶u̶r̶ ̶b̶o̶t̶t̶o̶m̶ ̶i̶s̶ ̶o̶n̶ ̶t̶h̶e̶ ̶s̶a̶m̶e̶ ̶y̶ ̶p̶l̶a̶n̶e̶ ̶a̶s̶ ̶t̶h̶e̶ ̶l̶o̶w̶e̶r̶ ̶h̶a̶l̶f̶ ̶o̶f̶ ̶a̶ ̶t̶i̶l̶e̶,̶
-̶y̶o̶u̶ ̶k̶i̶n̶d̶ ̶o̶f̶ ̶z̶o̶o̶p̶ ̶t̶o̶ ̶b̶e̶ ̶b̶e̶l̶o̶w̶ ̶t̶h̶e̶ ̶t̶i̶l̶e̶,̶ ̶t̶h̶e̶ ̶i̶s̶s̶u̶e̶ ̶i̶s̶ ̶t̶o̶ ̶d̶o̶ ̶w̶i̶t̶h̶ ̶t̶i̶l̶e̶.̶j̶s̶ ̶a̶n̶d̶ ̶c̶o̶l̶l̶i̶s̶i̶o̶n̶ ̶d̶e̶t̶e̶c̶t̶i̶o̶n̶ 
-[FIXED 3/22/2020]
-
-[3/22/2020]  2) when two tile are oriented kitty corner (their corners touching, like a checkerboard) 
-the player can pass through the corner from the higher space to the lower space. this should not be possible.
+[3/20/2020]  1) when you walk at a tile where your bottom is on the same y plane as the lower half of a tile, you kind of zoop to 
+be below the tile, the issue is to do with tile.js and collision detection
 [EXTANT]
+
+[3/22/2020]  2̶)̶ ̶w̶h̶e̶n̶ ̶t̶w̶o̶ ̶t̶i̶l̶e̶ ̶a̶r̶e̶ ̶o̶r̶i̶e̶n̶t̶e̶d̶ ̶k̶i̶t̶t̶y̶ ̶c̶o̶r̶n̶e̶r̶ ̶(̶t̶h̶e̶i̶r̶ ̶c̶o̶r̶n̶e̶r̶s̶ ̶t̶o̶u̶c̶h̶i̶n̶g̶,̶ ̶l̶i̶k̶e̶ ̶a̶ ̶c̶h̶e̶c̶k̶e̶r̶b̶o̶a̶r̶d̶)̶ ̶
+̶t̶h̶e̶ ̶p̶l̶a̶y̶e̶r̶ ̶c̶a̶n̶ ̶p̶a̶s̶s̶ ̶t̶h̶r̶o̶u̶g̶h̶ ̶t̶h̶e̶ ̶c̶o̶r̶n̶e̶r̶ ̶f̶r̶o̶m̶ ̶t̶h̶e̶ ̶h̶i̶g̶h̶e̶r̶ ̶s̶p̶a̶c̶e̶ ̶t̶o̶ ̶t̶h̶e̶ ̶l̶o̶w̶e̶r̶ ̶s̶p̶a̶c̶e̶.̶ ̶t̶h̶i̶s̶ ̶s̶h̶o̶u̶l̶d̶ ̶n̶o̶t̶ ̶b̶e̶ ̶p̶o̶s̶s̶i̶b̶l̶e̶.̶
+[FIXED 3/22/2020]
 
 
 
