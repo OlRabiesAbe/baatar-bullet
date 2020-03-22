@@ -2,8 +2,8 @@
 ̶y̶o̶u̶ ̶k̶i̶n̶d̶ ̶o̶f̶ ̶z̶o̶o̶p̶ ̶t̶o̶ ̶b̶e̶ ̶b̶e̶l̶o̶w̶ ̶t̶h̶e̶ ̶t̶i̶l̶e̶,̶ ̶t̶h̶e̶ ̶i̶s̶s̶u̶e̶ ̶i̶s̶ ̶t̶o̶ ̶d̶o̶ ̶w̶i̶t̶h̶ ̶t̶i̶l̶e̶.̶j̶s̶ ̶a̶n̶d̶ ̶c̶o̶l̶l̶i̶s̶i̶o̶n̶ ̶d̶e̶t̶e̶c̶t̶i̶o̶n̶ 
 [FIXED 3/22/2020]
 
-[3/22/2020]  2) when two tile are oriented kitty corner (their corners touching, like a checkerboard) the player can pass through the corner from 
-the higher space to the lower space. this should not be possible.
+[3/22/2020]  2) when two tile are oriented kitty corner (their corners touching, like a checkerboard) 
+the player can pass through the corner from the higher space to the lower space. this should not be possible.
 [EXTANT]
 
 
