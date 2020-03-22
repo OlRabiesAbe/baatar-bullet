@@ -1,0 +1,2 @@
+  1) when you walk at a tile where your bottom is on the same y plane as the lower half of a tile, you kind of zoop to be below the tile,
+the issue is to do with tile.js and collision detection
