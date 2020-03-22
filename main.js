@@ -76,6 +76,14 @@ ASSET_MANAGER.downloadAll(function () {
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400 + 128);
 		gameEngine.addTile(tile);
 	}
+	for(var i = 0; i < 8; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (3*64), 200 + (i*64));
+		gameEngine.addTile(tile);
+	}
+	for(var i = 0; i < 8; i++){
+		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (5*64), 200 + (i*64));
+		gameEngine.addTile(tile);
+	}
 	for(var i = 0; i < 5; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200, 200 + (i*64));
 		gameEngine.addTile(tile);
