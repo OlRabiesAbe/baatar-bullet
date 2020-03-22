@@ -57,6 +57,7 @@ var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
 ASSET_MANAGER.queueDownload("./img/tile_temp.png");
+ASSET_MANAGER.queueDownload("./img/mob_temp.png");
 
 
 ASSET_MANAGER.downloadAll(function () {
@@ -91,6 +92,8 @@ ASSET_MANAGER.downloadAll(function () {
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200 + (i*64), 200);
 		gameEngine.addTile(tile);
 	}
+	var mob = new Mob(gameEngine, 900, 880, "test");
+	gameEngine.addEntity(mob);
 	var baatar = new Baatar(gameEngine);
 	gameEngine.addEntity(baatar);
 	
