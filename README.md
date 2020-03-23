@@ -21,21 +21,34 @@ Required Assets:
 Gameplay, and What It Will Require:
 	Gameplay will feature fast paced bullet-hell shooter action. Basic gameplay loop will be as follows: receive info about area boss and area from sidekick char, fight of generic grunts through level, confront then fight area boss.
 	This will require the following systems:
+	
 	-a scene manager
+	
 	-dialog manager
+	
 	-hud manager
+	
 	-top-down omnidirectional camera
+	
 	-four-way momentous movement
+	
 	-enemy ai (can prolly get away w it being basic)
+	
 	-wall collision, applicable to Baatar and enemies
+	
 	-robust bullet spawning tech, applicable to Baatar and enemies
+	
 	-hp system, applicable to Baatar and enemies
+	
 	-hit detection, applicable to Baatar and enemies
 
 Protagonist’s powers:
 	Baatar will be able to do the following:
+	
 	-fire bullets in a pattern
+	
 	-swing his baseball bat to deflect bullets
+	
 	-pick up power-ups to change his bullet’s patterns
 
 Story(?):
@@ -47,8 +60,6 @@ Art Design:
 OST:
 	Due to a total absence of musical talent/skill, music will be entirely ripped from soundtracks I like. This game will not be sold, so no matter.
 	Sound effects will either be recorded via my microphone and edited in Audacity, or ripped from the internet/other games.
-
-Non Essential Content:
 
 Timeline:
 
