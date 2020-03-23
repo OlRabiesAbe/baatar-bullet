@@ -1,9 +1,9 @@
 Baatar.prototype = new Entity();
 
-function Baatar(game) {
+function Baatar(game, x = 2, y = 2) {
 	this.game = game;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
-	this.x = 50; this.y = 50;
+	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
 	this.width = 32; this.height = 64;
 	
 	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)

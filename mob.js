@@ -3,7 +3,7 @@ Mob.prototype = new Entity();
 function Mob(game, x, y, mob_type) {
 	this.game = game;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
-	this.x = x; this.y = y;
+	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
 	this.mob_type = mob_type;
 	this.width = 32; this.height = 64;
 	
@@ -24,4 +24,8 @@ Mob.prototype.update = function() {}
 
 Mob.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+}
+
+Mob.prototype.setFreeXY = function(x, y) {
+	this.x = x; this.y = y;
 }

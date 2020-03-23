@@ -65,44 +65,41 @@ ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
     var ctx = canvas.getContext('2d');
 
-    var gameEngine = new GameEngine();
-	var scene_manager = new SceneManager(gameEngine);
-	var test_scene = new Scene(gameEngine, ctx, "test scene");
+    var game = new GameEngine();
+	var scene_manager = new SceneManager(game);
+	var test_scene = new Scene(game, ctx, "test scene");
 	scene_manager.addScene(test_scene);
 	
-	var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 400, 800);
+	var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12, 11);
 	test_scene.addTile(tile);
 	for(var i = 0; i < 8; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400);
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12 + i, 4);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 8; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400 + 128);
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12 + i, 6);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200, 200 + (i*64));
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 2, 2 + i);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200);
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200 + (64 * 5));
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 7);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200 + (i*64), 200);
+		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
 		test_scene.addTile(tile);
 	}
-	var mob = new Mob(gameEngine, 900, 880, "test");
+	var mob = new Mob(game, 18, 9, "test");
 	test_scene.addEntity(mob);
-	var baatar = new Baatar(gameEngine);
+	var baatar = new Baatar(game, 1, 1);
 	test_scene.addEntity(baatar);
 	
 	scene_manager.setScene("test scene");
-	
-    //gameEngine.init(ctx);
-	//gameEngine.start();
 });

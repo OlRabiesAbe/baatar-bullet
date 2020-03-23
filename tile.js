@@ -3,7 +3,7 @@ Tile.prototype.constructor = Tile;
 
 function Tile(game, img, imgX, imgY, x, y) {
 	this.game = game;
-	this.x = x; this.y = y;
+	this.x = x * 64; this.y = y * 64;
 	this.width = 64; this.height = 64; 
 	this.animation = new Animation(ASSET_MANAGER.getAsset(img), imgX, imgY, 64, 64, 1, 1, true, false);
 	
@@ -56,3 +56,7 @@ Tile.prototype.update = function(ctx) { //handle collision on all entities
 }
 
 Tile.prototype.draw = function(ctx) {this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);}
+
+Tile.prototype.setFreeXY = function(x, y) {
+	this.x = x; this.y = y;
+}
