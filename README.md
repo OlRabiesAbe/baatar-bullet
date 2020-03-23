@@ -9,9 +9,13 @@ Overview:
 	The game in question will be a top-down/pseudo-isometric bullet-hell shooter with stylized pixel art, and some inspiration taken from Hotline Miami in addition to traditional bullet-hells. The game will feature cut-scenes, combat with a varied move-set, a characterized protagonist, multiple other named characters, a generally humorous tone with some horror undertones. The game will feature  passwords in lieu of saving. Dialog will be in intentionally stilted English to emphasize foreignness of the locale.
 
 Required Assets:
+
 	-Characters: the game will feature named characters, who will all require both a game-world animated sprite and conversation portraits.
+	
 	-Enemies: the game will feature enemies that will have game-world sprites animated for movement, attacking, and death.
+	
 	-Levels: each level will either require a single image or tile based geometry.
+	
 	-Hud/Ui: the Hud, Ui, and menu will require art and animated buttons.
 
 Gameplay, and What It Will Require:
