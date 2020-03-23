@@ -46,7 +46,8 @@ OST:
 
 Non Essential Content:
 
-Time Line:
+Timeline:
+
 	3/20/20 – rip movement, collision, relevant code from UTCG, repackage into new engine
 			(keep tile-based level design)
 	
