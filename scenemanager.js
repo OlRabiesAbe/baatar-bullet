@@ -14,7 +14,10 @@ SceneManager.prototype.setScene = function(scene_name) {
 	this.game.tiles = scene.tiles;
 	this.game.all_entities = scene.all_entities;
 	this.game.current_scene = scene_name;
-	console.log(scene_name + " successfully loaded")
+	console.log(scene_name + " successfully loaded");
+	for(var i = 0; i < scene.entities.length; i++) {
+		if (scene.entities[i] instanceof Baatar) this.game.baatar = scene.entities[i];
+	}
 	this.game.init(scene.ctx);
 	this.game.start();
 }
@@ -22,7 +25,7 @@ SceneManager.prototype.setScene = function(scene_name) {
 
 // a scene is more or less just a list of objects that comprise a level
 // objects can be added through parameters or manually via below functions
-function Scene(game, ctx, scene_name, entities = [], tiles = [], all_entities = []) {
+function Scene(game, ctx, scene_name, baatar, entities = [], tiles = [], all_entities = []) {
 	this.game = game;
 	this.ctx = ctx;
 	this.scene_name = scene_name;

@@ -28,6 +28,7 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
+	this.baatar = null;
 	this.entities = [];
 	this.tiles = [];
 	this.all_entities = [];
@@ -44,7 +45,6 @@ function GameEngine() {
 
 GameEngine.prototype.init = function (ctx) {
     this.ctx = ctx;
-
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
     this.startInput();
