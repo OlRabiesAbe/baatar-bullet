@@ -6,7 +6,8 @@ be below the tile, the issue is to do with tile.js and collision detection
 ̶t̶h̶e̶ ̶p̶l̶a̶y̶e̶r̶ ̶c̶a̶n̶ ̶p̶a̶s̶s̶ ̶t̶h̶r̶o̶u̶g̶h̶ ̶t̶h̶e̶ ̶c̶o̶r̶n̶e̶r̶ ̶f̶r̶o̶m̶ ̶t̶h̶e̶ ̶h̶i̶g̶h̶e̶r̶ ̶s̶p̶a̶c̶e̶ ̶t̶o̶ ̶t̶h̶e̶ ̶l̶o̶w̶e̶r̶ ̶s̶p̶a̶c̶e̶.̶ ̶t̶h̶i̶s̶ ̶s̶h̶o̶u̶l̶d̶ ̶n̶o̶t̶ ̶b̶e̶ ̶p̶o̶s̶s̶i̶b̶l̶e̶.̶
 [FIXED 3/22/2020]
 
-
+[3/22/2020] 3) all sorts of jank occur when tiles arent alligned on the same grid. something to look at.
+[EXTANT]
 
 
 
