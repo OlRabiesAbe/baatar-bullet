@@ -31,7 +31,8 @@ Timer.prototype.tick = function () {
 function GameEngine() {
 	this.entities = [];
 	this.tiles = [];
-	this.allEntities = [];
+	this.all_entities = [];
+	this.current_scene = "default";
     this.showOutlines = false;
     this.ctx = null;
     this.click = null;
@@ -62,7 +63,7 @@ GameEngine.prototype.start = function () {
 }
 
 GameEngine.prototype.startInput = function () {
-    console.log('Starting input');
+    console.log('starting input');
     var that = this;
 	this.ctx.canvas.addEventListener("mousemove", function (e) {
 		//console.log(e.clientX + " " + e.clientY);
@@ -93,14 +94,14 @@ GameEngine.prototype.startInput = function () {
 }
 
 GameEngine.prototype.addEntity = function (entity) {
-    console.log('added entity');
+    console.log(' : the game engine itself added an entity');
 	this.entities.push(entity);
-    this.allEntities.push(entity);
+    this.all_entities.push(entity);
 }
 GameEngine.prototype.addTile = function (entity) {
-    console.log('added entity');
+    console.log(' : the game engine itself added a tile');
 	this.tiles.push(entity);
-    this.allEntities.push(entity);
+    this.all_entities.push(entity);
 }
 
 GameEngine.prototype.draw = function () {

@@ -66,46 +66,43 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
 
     var gameEngine = new GameEngine();
+	var scene_manager = new SceneManager(gameEngine);
+	var test_scene = new Scene(gameEngine, ctx, "test scene");
+	scene_manager.addScene(test_scene);
+	
 	var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 400, 800);
-	gameEngine.addTile(tile);
+	test_scene.addTile(tile);
 	for(var i = 0; i < 8; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400);
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 8; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (i*64), 400 + 128);
-		gameEngine.addTile(tile);
-	}
-	for(var i = 0; i < 8; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (3*64), 200 + (i*64));
-		gameEngine.addTile(tile);
-	}
-	for(var i = 0; i < 8; i++){
-		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 800 + (5*64), 200 + (i*64));
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200, 200 + (i*64));
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200);
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 264 + (i*64), 200 + (64 * 5));
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
 		var tile = new Tile(gameEngine, "./img/tile_temp.png", 0, 0, 200 + (i*64), 200);
-		gameEngine.addTile(tile);
+		test_scene.addTile(tile);
 	}
 	var mob = new Mob(gameEngine, 900, 880, "test");
-	gameEngine.addEntity(mob);
+	test_scene.addEntity(mob);
 	var baatar = new Baatar(gameEngine);
-	gameEngine.addEntity(baatar);
+	test_scene.addEntity(baatar);
 	
+	scene_manager.setScene("test scene");
 	
-    gameEngine.init(ctx);
-	gameEngine.start();
+    //gameEngine.init(ctx);
+	//gameEngine.start();
 });
