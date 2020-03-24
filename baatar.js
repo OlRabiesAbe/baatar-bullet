@@ -22,6 +22,21 @@ function Baatar(game, x = 2, y = 2) {
 Baatar.prototype.update = function() {
 	this.horizontal = (this.game.d || this.game.a);
 	this.vertical = (this.game.w || this.game.s);
+	if(this.horizontal && this.vertical) {
+		this.MAX_HSPEED =  8 * 0.8509;
+		this.MAX_VSPEED =  8 * 0.8509;
+		this.HACCEL = 0.8509;
+		this.VACCEL = 0.8509;
+		this.HDECCEL = this.HACCEL;
+		this.VDECCEL = this.VACCEL;
+	} else {
+		this.MAX_HSPEED =  8;
+		this.MAX_VSPEED =  8;
+		this.HACCEL = 1;
+		this.VACCEL = 1;
+		this.HDECCEL = this.HACCEL;
+		this.VDECCEL = this.VACCEL;
+	}
 	
 	if(this.horizontal) {
 		//sanitizing input (why is no press = undefined?  not false?)
@@ -41,6 +56,7 @@ Baatar.prototype.update = function() {
 	if(Math.abs(this.hspeed) > this.MAX_HSPEED) 
 		this.hspeed = this.MAX_HSPEED * Math.sign(this.hspeed);
 	this.x += this.hspeed;
+	console.log(this.hspeed);
 	
 	if(this.vertical) {
 		//sanitizing input (why is no press = undefined?  not false?)
