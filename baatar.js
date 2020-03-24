@@ -23,10 +23,10 @@ Baatar.prototype.update = function() {
 	this.horizontal = (this.game.d || this.game.a);
 	this.vertical = (this.game.w || this.game.s);
 	if(this.horizontal && this.vertical) {
-		this.MAX_HSPEED =  8 * 0.8509;
-		this.MAX_VSPEED =  8 * 0.8509;
-		this.HACCEL = 0.8509;
-		this.VACCEL = 0.8509;
+		this.MAX_HSPEED =  8 * 0.707;
+		this.MAX_VSPEED =  8 * 0.707;
+		this.HACCEL = 0.707;
+		this.VACCEL = 0.707;
 		this.HDECCEL = this.HACCEL;
 		this.VDECCEL = this.VACCEL;
 	} else {
