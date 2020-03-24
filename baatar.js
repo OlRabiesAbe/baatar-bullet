@@ -27,16 +27,14 @@ Baatar.prototype.update = function() {
 		this.MAX_VSPEED =  8 * 0.707;
 		this.HACCEL = 0.707;
 		this.VACCEL = 0.707;
-		this.HDECCEL = this.HACCEL;
-		this.VDECCEL = this.VACCEL;
 	} else {
 		this.MAX_HSPEED =  8;
 		this.MAX_VSPEED =  8;
 		this.HACCEL = 1;
 		this.VACCEL = 1;
-		this.HDECCEL = this.HACCEL;
-		this.VDECCEL = this.VACCEL;
 	}
+	this.HDECCEL = this.HACCEL;
+	this.VDECCEL = this.VACCEL;
 	
 	if(this.horizontal) {
 		//sanitizing input (why is no press = undefined?  not false?)
