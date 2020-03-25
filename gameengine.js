@@ -28,18 +28,18 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
-	this.baatar = null;
-	this.entities = [];
-	this.tiles = [];
-	this.hud_elements = [];
-	this.all_entities = [];
-	this.current_scene = "default";
+    this.baatar = null;
+    this.entities = [];
+    this.tiles = [];
+    this.hud_elements = [];
+    this.all_entities = [];
+    this.current_scene = "default";
     this.showOutlines = false;
     this.ctx = null;
     this.click = null;
     this.mouse = null;
     this.wheel = null;
-	this.mute = false;
+    this.mute = false;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
 }
