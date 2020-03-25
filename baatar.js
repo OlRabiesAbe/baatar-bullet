@@ -17,13 +17,18 @@ function Baatar(game, x = 2, y = 2) {
 	this.MAX_VSPEED = 8;
 	this.VACCEL = 1;
 	this.VDECCEL = this.VACCEL;
+	
+	this.gun = new BulletSpawner(game, this);
 }
 
 Baatar.prototype.update = function() {
 	this.horizontal = (this.game.d || this.game.a);
 	this.vertical = (this.game.w || this.game.s);
+	
+	//this code changes max speeds to fix the thing where up and right = faster than up or right
+	// (there has to be a better way to do this?)
 	if(this.horizontal && this.vertical) {
-		this.MAX_HSPEED =  8 * 0.707;
+		this.MAX_HSPEED =  8 * 0.707;	// 0.707^2 + 0.707^2 = 1^2
 		this.MAX_VSPEED =  8 * 0.707;
 		this.HACCEL = 0.707;
 		this.VACCEL = 0.707;
@@ -54,7 +59,6 @@ Baatar.prototype.update = function() {
 	if(Math.abs(this.hspeed) > this.MAX_HSPEED) 
 		this.hspeed = this.MAX_HSPEED * Math.sign(this.hspeed);
 	this.x += this.hspeed;
-	console.log(this.hspeed);
 	
 	if(this.vertical) {
 		//sanitizing input (why is no press = undefined?  not false?)
@@ -74,6 +78,8 @@ Baatar.prototype.update = function() {
 	if(Math.abs(this.vspeed) > this.MAX_VSPEED) 
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
+	
+	this.gun.fire();
 }
 
 Baatar.prototype.draw = function(ctx) {

@@ -31,6 +31,7 @@ function GameEngine() {
 	this.baatar = null;
 	this.entities = [];
 	this.tiles = [];
+	this.hud_elements = [];
 	this.all_entities = [];
 	this.current_scene = "default";
     this.showOutlines = false;
@@ -66,7 +67,8 @@ GameEngine.prototype.startInput = function () {
     var that = this;
 	this.ctx.canvas.addEventListener("mousemove", function (e) {
 		//console.log(e.clientX + " " + e.clientY);
-	
+		that.mouse_x = e.clientX;
+		that.mouse_y = e.clientY;
 	}, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {	
@@ -102,6 +104,11 @@ GameEngine.prototype.addTile = function (entity) {
 	this.tiles.push(entity);
     this.all_entities.push(entity);
 }
+GameEngine.prototype.addHUDElement = function (entity) {
+    console.log(' : the game engine itself added a hud element');
+	this.hud_elements.push(entity);
+    this.all_entities.push(entity);
+}
 
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -111,6 +118,9 @@ GameEngine.prototype.draw = function () {
     }
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw(this.ctx);
+    }
+	for (var i = 0; i < this.hud_elements.length; i++) {
+        this.hud_elements[i].draw(this.ctx);
     }
     this.ctx.restore();
 }
@@ -129,6 +139,12 @@ GameEngine.prototype.update = function () {
     }
 	for (var i = 0; i < this.tiles.length; i++) {
         var entity = this.tiles[i];
+        if (!entity.removeFromWorld) {
+            entity.update();
+        }
+    }
+	for (var i = 0; i < this.hud_elements.length; i++) {
+        var entity = this.hud_elements[i];
         if (!entity.removeFromWorld) {
             entity.update();
         }

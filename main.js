@@ -58,6 +58,8 @@ var ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
 ASSET_MANAGER.queueDownload("./img/tile_temp.png");
 ASSET_MANAGER.queueDownload("./img/mob_temp.png");
+ASSET_MANAGER.queueDownload("./img/cursor_temp.png");
+ASSET_MANAGER.queueDownload("./img/bullet_temp.png");
 
 
 ASSET_MANAGER.downloadAll(function () {
@@ -98,6 +100,8 @@ ASSET_MANAGER.downloadAll(function () {
 	}
 	var mob = new Mob(game, 18, 9, "test");
 	test_scene.addEntity(mob);
+	var cursor = new Cursor(game);
+	test_scene.addHUDElement(cursor);
 	var baatar = new Baatar(game, 1, 1);
 	test_scene.addEntity(baatar);
 	

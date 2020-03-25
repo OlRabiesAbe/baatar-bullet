@@ -12,6 +12,7 @@ SceneManager.prototype.setScene = function(scene_name) {
 	var scene = this.scenes.get(scene_name);
 	this.game.entities = scene.entities;
 	this.game.tiles = scene.tiles;
+	this.game.hud_elements = scene.hud_elements;
 	this.game.all_entities = scene.all_entities;
 	this.game.current_scene = scene_name;
 	console.log(scene_name + " successfully loaded");
@@ -25,12 +26,13 @@ SceneManager.prototype.setScene = function(scene_name) {
 
 // a scene is more or less just a list of objects that comprise a level
 // objects can be added through parameters or manually via below functions
-function Scene(game, ctx, scene_name, baatar, entities = [], tiles = [], all_entities = []) {
+function Scene(game, ctx, scene_name, baatar, entities = [], tiles = [], hud_elements = [], all_entities = []) {
 	this.game = game;
 	this.ctx = ctx;
 	this.scene_name = scene_name;
 	this.entities = entities;
 	this.tiles = tiles;
+	this.hud_elements = hud_elements;
 	this.all_entities = all_entities;
 }
 
@@ -42,5 +44,10 @@ Scene.prototype.addEntity = function (entity) {
 Scene.prototype.addTile = function (entity) {
     console.log(" : " + this.scene_name + ' added a tile');
 	this.tiles.push(entity);
+    this.all_entities.push(entity);
+}
+Scene.prototype.addHUDElement = function (entity) {
+    console.log(" : " + this.scene_name + " added a hud element");
+	this.hud_elements.push(entity);
     this.all_entities.push(entity);
 }

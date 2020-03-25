@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <title>Baatar Bullet</title>
 	
-	<!-- FUN FACT: depending on the order the browser decides to load these js file,
-		the game might just not work. if "Uncaught TypeError: Cannot read property 'getContext' of null"
+	<!-- FUN FACT: depending on the order the browser decides to load these js files,
+		the game might simply fail to function. if "Uncaught TypeError: Cannot read property 'getContext' of null"
 		appears in console, thats prolly what happened. Need to find a correct workaround.-->
-    	<script type="text/javascript" src="./assetmanager.js"></script>
-    	<script type="text/javascript" src="./gameengine.js"></script>
+	<script type="text/javascript" src="./assetmanager.js"></script>
+	<script type="text/javascript" src="./gameengine.js"></script>
+	<script type="text/javascript" src="./hudelements.js"></script>
+	<script type="text/javascript" src="./bullets.js"></script>
 	<script type="text/javascript" src="./baatar.js"></script>
 	<script type="text/javascript" src="./tile.js"></script>
 	<script type="text/javascript" src="./mob.js"></script>
@@ -18,7 +20,11 @@
 	
 </head>
 <body>
-    <center><canvas id="gameWorld" tabindex="1" width="1600" height="900" style="border: 1px solid brown; background: #191F21"></canvas></center>
+
+    <center>
+	How long til your browser freezes? dm me your times
+	<canvas id="gameWorld" tabindex="1" width="1600" height="900" style="border: 1px solid brown; background: #191F21"></canvas>
+	</center>
 	
 </body>
 </html>
