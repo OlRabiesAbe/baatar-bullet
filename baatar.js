@@ -16,19 +16,19 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.MOVE_ACCEL = 1/*unitsperframe*/;
 	this.TIME_BETWEEN_SHOTS = 15/*frames*/;
 	
-	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
+	//suite of variables for horizontal movement
 	this.hspeed = 0;
 	this.MAX_HSPEED = this.MOVE_SPEED;
 	this.HACCEL = this.MOVE_ACCEL;
 	this.HDECCEL = this.HACCEL;
 	
-	//suite of variables for the vertical movement		(ALL_CAPS = psuedo constant)
+	//suite of variables for the vertical movement
 	this.vspeed = 0;
 	this.MAX_VSPEED = this.MOVE_SPEED;
 	this.VACCEL = this.MOVE_ACCEL;
 	this.VDECCEL = this.VACCEL;
 	
-	//suite of variables for shooting my BulletSpawner	(ALL_CAPS = psuedo constant)
+	//suite of variables for shooting my BulletSpawner
 	this.shoot_timer = 15;
 }
 
