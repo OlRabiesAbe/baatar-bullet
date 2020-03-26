@@ -11,8 +11,10 @@ Cursor.prototype = new Entity();
 
 function Cursor(game) {
 	this.game = game;
-	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/cursor_temp.png"), 0, 0, 16, 16, 1, 1, true, false);
 	this.x = 0; this.y = 0;
+	this.width = 16; this.height = 16;
+	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/cursor_temp.png"), 0, 0, width, height, 1, 1, true, false);
+	
 	
 	// default canvas mouse events dont factor in the margin between the canvas and browser window edge,
 	// so the reported x y are always off from the actual cursor.
