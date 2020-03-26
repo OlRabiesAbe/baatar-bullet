@@ -9,6 +9,7 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.cursor = cursor;
 	this.width = 32; this.height = 64;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, this.width, this.height, 1, 1, true, false);
+	this.gun = new BulletSpawner(game, this);
 	
 	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
 	this.hspeed = 0;
@@ -22,8 +23,8 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.VACCEL = 1;
 	this.VDECCEL = this.VACCEL;
 	
+	//suite of variables for shooting my BulletSpawner	(ALL_CAPS = psuedo constant)
 	this.shoot_timer = 15;
-	this.gun = new BulletSpawner(game, this);
 }
 
 Baatar.prototype.update = function() {
