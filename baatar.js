@@ -79,7 +79,7 @@ Baatar.prototype.update = function() {
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
 	
-	this.gun.fire();
+	if(this.game.click) this.gun.fire();
 }
 
 Baatar.prototype.draw = function(ctx) {

@@ -9,7 +9,7 @@ BulletSpawner.prototype.fire = function() {
 	switch(this.type) {
 		default:
 		case "single straight":
-			this.game.addEntity(new Bullet(this.game, this.owner, [2, 0]));
+			this.game.addEntity(new Bullet(this.game, this.owner, {x : 2, y : 0}));
 			break;
 	}
 }
@@ -25,8 +25,8 @@ function Bullet(game, owner, bearing, pattern = "straight") {
 	this.x = owner.x; this.y = owner.y;
 }
 Bullet.prototype.update = function() {
-	this.x += this.bearing[0];
-	this.y += this.bearing[1];
+	this.x += this.bearing.x;
+	this.y += this.bearing.y;
 }
 Bullet.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x - 16, this.y - 16);
