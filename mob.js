@@ -72,6 +72,7 @@ Mob.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }
 
+// setter func to move a [whatever this is] off the grid
 Mob.prototype.setFreeXY = function(x, y) {
 	this.x = x; this.y = y;
 }
