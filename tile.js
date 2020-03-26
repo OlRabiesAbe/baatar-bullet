@@ -59,7 +59,7 @@ Tile.prototype.update = function(ctx) { //handle collision on all entities
 
 Tile.prototype.draw = function(ctx) {this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);}
 
-// setter func to move a tile off the grid
+// setter func to move a [whatever this is] off the grid
 Tile.prototype.setFreeXY = function(x, y) {
 	this.x = x; this.y = y;
 }
