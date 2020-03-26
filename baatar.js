@@ -19,6 +19,7 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.VACCEL = 1;
 	this.VDECCEL = this.VACCEL;
 	
+	this.shoot_timer = 15;
 	this.gun = new BulletSpawner(game, this);
 }
 
@@ -80,10 +81,11 @@ Baatar.prototype.update = function() {
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
 	
-	if(this.game.click) {
+	if(this.game.click && this.shoot_timer == 15) {
 		this.cursor.update();
 		this.gun.fire( {x: this.cursor.x + (this.cursor.width/2), y: this.cursor.y + (this.cursor.height/2)} );
-	}
+		this.shoot_timer = 0;
+	} else if(this.shoot_timer != 15) this.shoot_timer++;
 }
 
 Baatar.prototype.draw = function(ctx) {
