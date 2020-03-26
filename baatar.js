@@ -11,16 +11,21 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, this.width, this.height, 1, 1, true, false);
 	this.gun = new BulletSpawner(game, this);
 	
+	//hyper centralized variable suite so i can make tweaks very easily
+	this.MOVE_SPEED = 8/*maxperframe*/;
+	this.MOVE_ACCEL = 1/*unitsperframe*/;
+	this.TIME_BETWEEN_SHOTS = 15/*frames*/;
+	
 	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
 	this.hspeed = 0;
-	this.MAX_HSPEED = 8;
-	this.HACCEL = 1;
+	this.MAX_HSPEED = this.MOVE_SPEED;
+	this.HACCEL = this.MOVE_ACCEL;
 	this.HDECCEL = this.HACCEL;
 	
 	//suite of variables for the vertical movement		(ALL_CAPS = psuedo constant)
 	this.vspeed = 0;
-	this.MAX_VSPEED = 8;
-	this.VACCEL = 1;
+	this.MAX_VSPEED = this.MOVE_SPEED;
+	this.VACCEL = this.MOVE_ACCEL;
 	this.VDECCEL = this.VACCEL;
 	
 	//suite of variables for shooting my BulletSpawner	(ALL_CAPS = psuedo constant)
@@ -34,15 +39,15 @@ Baatar.prototype.update = function() {
 	//this code changes max speeds to fix the thing where up and right = faster than up or right
 	// (there has to be a better way to do this?)
 	if(this.horizontal && this.vertical) {
-		this.MAX_HSPEED =  8 * 0.707;	// 0.707^2 + 0.707^2 = 1^2
-		this.MAX_VSPEED =  8 * 0.707;
-		this.HACCEL = 0.707;
-		this.VACCEL = 0.707;
+		this.MAX_HSPEED =  this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
+		this.MAX_VSPEED =  this.MOVE_SPEED * 0.707;
+		this.HACCEL = this.MOVE_ACCEL * 0.707;
+		this.VACCEL = this.MOVE_ACCEL * 0.707;
 	} else {
-		this.MAX_HSPEED =  8;
-		this.MAX_VSPEED =  8;
-		this.HACCEL = 1;
-		this.VACCEL = 1;
+		this.MAX_HSPEED =  this.MOVE_SPEED;
+		this.MAX_VSPEED =  this.MOVE_SPEED;
+		this.HACCEL = this.MOVE_ACCEL;
+		this.VACCEL = this.MOVE_ACCEL;
 	}
 	this.HDECCEL = this.HACCEL;
 	this.VDECCEL = this.VACCEL;
@@ -86,11 +91,11 @@ Baatar.prototype.update = function() {
 	this.y += this.vspeed;
 	
 	//checking for gunfire from player, handling shoot_timer
-	if(this.game.click && this.shoot_timer == 15) {
+	if(this.game.click && this.shoot_timer == this.TIME_BETWEEN_SHOTS) {
 		this.cursor.update();
 		this.gun.fire( {x: this.cursor.x + (this.cursor.width/2), y: this.cursor.y + (this.cursor.height/2)} );
 		this.shoot_timer = 0;
-	} else if(this.shoot_timer != 15) this.shoot_timer++;
+	} else if(this.shoot_timer != this.TIME_BETWEEN_SHOTS) this.shoot_timer++;
 }
 
 Baatar.prototype.draw = function(ctx) {
