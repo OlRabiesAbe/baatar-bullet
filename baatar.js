@@ -2,10 +2,13 @@ Baatar.prototype = new Entity();
 
 function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.game = game;
-	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
+	//all xy coords are automatically converted to the 64 unit grid
+	//the extra adddition is to center baatar on a tile
+	// xy: 2,3 = 128,192
 	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
 	this.cursor = cursor;
 	this.width = 32; this.height = 64;
+	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, this.width, this.height, 1, 1, true, false);
 	
 	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
 	this.hspeed = 0;
@@ -81,6 +84,7 @@ Baatar.prototype.update = function() {
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
 	
+	//checking for gunfire from player, handling shoot_timer
 	if(this.game.click && this.shoot_timer == 15) {
 		this.cursor.update();
 		this.gun.fire( {x: this.cursor.x + (this.cursor.width/2), y: this.cursor.y + (this.cursor.height/2)} );
