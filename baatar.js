@@ -82,7 +82,7 @@ Baatar.prototype.update = function() {
 	
 	if(this.game.click) {
 		this.cursor.update();
-		this.gun.fire({x:this.cursor.x, y:this.cursor.y});
+		this.gun.fire( {x: this.cursor.x + (this.cursor.width/2), y: this.cursor.y + (this.cursor.height/2)} );
 	}
 }
 
