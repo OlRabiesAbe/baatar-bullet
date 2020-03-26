@@ -1,15 +1,23 @@
 BulletSpawner.prototype = new Entity();
-function BulletSpawner(game, owner = null, type = "single straight") {
+
+function BulletSpawner(game, owner = null, type = "single straight", speed = 4) {
 	this.game = game;
 	this.type = type;
 	this.owner = owner;
+	this.speed = speed;
 }
-BulletSpawner.prototype.fire = function() {
+BulletSpawner.prototype.fire = function(targ_coords) {
 	if(this.owner == null) return;
+	
+	//calculating xy movement for bullet
+	targ_coords.x = targ_coords.x - this.owner.x;	targ_coords.y = targ_coords.y - this.owner.y;
+	var magic_ratio = this.speed / Math.sqrt((targ_coords.x * targ_coords.x) + (targ_coords.y * targ_coords.y));
+	var x_cln = targ_coords.x * magic_ratio;	var y_cln = targ_coords.y * magic_ratio;
+	
 	switch(this.type) {
 		default:
 		case "single straight":
-			this.game.addEntity(new Bullet(this.game, this.owner, {x : 2, y : 0}));
+			this.game.addEntity(new Bullet(this.game, this.owner, {x:x_cln, y:y_cln}));
 			break;
 	}
 }

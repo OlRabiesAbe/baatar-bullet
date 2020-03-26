@@ -42,7 +42,6 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
                   locX, locY,
                   this.frameWidth * scaleBy,
                   this.frameHeight * scaleBy);
-	
 }
 
 Animation.prototype.currentFrame = function () {
@@ -102,7 +101,7 @@ ASSET_MANAGER.downloadAll(function () {
 	test_scene.addEntity(mob);
 	var cursor = new Cursor(game);
 	test_scene.addHUDElement(cursor);
-	var baatar = new Baatar(game, 1, 1);
+	var baatar = new Baatar(game, 1, 1, cursor);
 	test_scene.addEntity(baatar);
 	
 	scene_manager.setScene("test scene");

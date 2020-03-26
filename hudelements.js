@@ -8,6 +8,7 @@ jQuery.fn.extend({
 
 // cursor code is suprisingly simple. c̶a̶n̶v̶a̶s ̶j̶s̶u̶t ̶h̶a̶n̶d̶l̶e̶s ̶t̶h̶e ̶m̶o̶u̶s̶e ̶r̶e̶c̶o̶r̶d̶i̶n̶g ̶w̶e̶l̶l forget i said anything
 Cursor.prototype = new Entity();
+
 function Cursor(game) {
 	this.game = game;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/cursor_temp.png"), 0, 0, 16, 16, 1, 1, true, false);
