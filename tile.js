@@ -7,7 +7,7 @@ function Tile(game, img, imgX, imgY, x, y) {
 	// xy: 2,3 = 128,192
 	this.x = x * 64; this.y = y * 64;
 	this.width = 64; this.height = 64; 
-	this.animation = new Animation(ASSET_MANAGER.getAsset(img), imgX, imgY, 64, 64, 1, 1, true, false);
+	this.animation = new Animation(ASSET_MANAGER.getAsset(img), imgX, imgY, this.width, this.height, 1, 1, true, false);
 	
 	//collision specifics suite
 	this.HORZ_COLL_RADIUS = 16; //how far a tile's hitbox extends out to the left and right
