@@ -17,7 +17,7 @@ BulletSpawner.prototype.fire = function(targ_coords) {
 	switch(this.type) {
 		default:
 		case "single straight":
-			this.game.addEntity(new Bullet(this.game, this.owner, {x:x_cln, y:y_cln}));
+			this.game.addBullet(new Bullet(this.game, this.owner, {x:x_cln, y:y_cln}));
 			break;
 	}
 }
@@ -35,7 +35,8 @@ function Bullet(game, owner, bearing, pattern = "straight") {
 Bullet.prototype.update = function() {
 	this.x += this.bearing.x;
 	this.y += this.bearing.y;
+	if(Math.abs(this.owner.x - this.x) > 2666 || Math.abs(this.owner.y - this.y) > 2666) this.remove_from_world = true;
 }
 Bullet.prototype.draw = function(ctx) {
-	this.animation.drawFrame(this.game.clockTick, ctx, this.x - 16, this.y - 16);
+	this.animation.drawFrame(this.game.clockTick, ctx, this.x - 8, this.y - 8);
 }

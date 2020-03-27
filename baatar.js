@@ -1,4 +1,5 @@
 Baatar.prototype = new Entity();
+Baatar.prototype.constructor = Baatar;
 
 function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.game = game;
@@ -9,12 +10,12 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.cursor = cursor;
 	this.width = 32; this.height = 64;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/baatar_temp.png"), 0, 0, this.width, this.height, 1, 1, true, false);
-	this.gun = new BulletSpawner(game, this);
+	this.gun = new BulletSpawner(game, this, "titledrop", 32);
 	
 	//hyper centralized variable suite so i can make tweaks very easily
 	this.MOVE_SPEED = 8/*maxperframe*/;
 	this.MOVE_ACCEL = 1/*unitsperframe*/;
-	this.TIME_BETWEEN_SHOTS = 15/*frames*/;
+	this.TIME_BETWEEN_SHOTS = 8/*frames*/;
 	
 	//suite of variables for horizontal movement
 	this.hspeed = 0;
@@ -29,7 +30,7 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 	this.VDECCEL = this.VACCEL;
 	
 	//suite of variables for shooting my BulletSpawner
-	this.shoot_timer = 15;
+	this.shoot_timer = this.TIME_BETWEEN_SHOTS;
 }
 
 Baatar.prototype.update = function() {
@@ -39,13 +40,13 @@ Baatar.prototype.update = function() {
 	//this code changes max speeds to fix the thing where up and right = faster than up or right
 	// (there has to be a better way to do this?)
 	if(this.horizontal && this.vertical) {
-		this.MAX_HSPEED =  this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
-		this.MAX_VSPEED =  this.MOVE_SPEED * 0.707;
+		this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
+		this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
 		this.HACCEL = this.MOVE_ACCEL * 0.707;
 		this.VACCEL = this.MOVE_ACCEL * 0.707;
 	} else {
-		this.MAX_HSPEED =  this.MOVE_SPEED;
-		this.MAX_VSPEED =  this.MOVE_SPEED;
+		this.MAX_HSPEED = this.MOVE_SPEED;
+		this.MAX_VSPEED = this.MOVE_SPEED;
 		this.HACCEL = this.MOVE_ACCEL;
 		this.VACCEL = this.MOVE_ACCEL;
 	}

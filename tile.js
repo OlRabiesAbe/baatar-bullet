@@ -1,5 +1,4 @@
 Tile.prototype = new Entity();
-Tile.prototype.constructor = Tile;
 
 function Tile(game, img, imgX, imgY, x, y) {
 	this.game = game;
@@ -17,7 +16,7 @@ function Tile(game, img, imgX, imgY, x, y) {
 								// i cant think of a better way to decribe it
 }
 
-Tile.prototype.handleCollision = function(entity) {
+Tile.prototype.handleEntityCollision = function(entity) {
 	
 	//checking if the entity is colliding with this tile. last else = a collision is indeed occuring
 	if(entity.y < this.y - this.VERT_LOWER_COLL_RADIUS || entity.y - (entity.width/2) > this.y + this.height + this.VERT_LOWER_COLL_RADIUS) {}
@@ -53,8 +52,17 @@ Tile.prototype.handleCollision = function(entity) {
 	}
 }
 
+Tile.prototype.handleBulletCollision = function(entity) {
+	
+	if(entity.y < this.y || entity.y > this.y + (this.height/2)) {}
+	else if (entity.x < this.x || entity.x > this.x + this.width) {}
+	else entity.remove_from_world = true;
+	
+}
+
 Tile.prototype.update = function(ctx) { //handle collision on all entities
-	for (var i = 0; i < this.game.entities.length; i++) this.handleCollision(this.game.entities[i]);
+	for (var i = 0; i < this.game.entities.length; i++) this.handleEntityCollision(this.game.entities[i]);
+	for (var i = 0; i < this.game.bullets.length; i++) this.handleBulletCollision(this.game.bullets[i]);
 }
 
 Tile.prototype.draw = function(ctx) {this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);}

@@ -7,28 +7,52 @@ Mob.prototype = new Entity();
 
 function Mob(game, x, y, mob_type) {
 	this.game = game;
-	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
+	//all xy coords are automatically converted to the 64 unit grid
+	//the extra adddition is to center baatar on a tile
+	// xy: 2,3 = 128,192
 	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
-	this.mob_type = mob_type;
 	this.width = 32; this.height = 64;
+	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
+	this.mob_type = mob_type;
 	this.aggroed = true;
 	
-	//suite of variables for horizontal movement		(ALL_CAPS = psuedo constant)
+	//hyper centralized variable suite so i can make tweaks very easily
+	this.MOVE_SPEED = 4/*maxperframe*/;
+	this.MOVE_ACCEL = 1/*unitsperframe*/;
+	
+	//suite of variables for horizontal movement
 	this.hspeed = 0;
-	this.MAX_HSPEED = 4;
-	this.HACCEL = 1;
+	this.MAX_HSPEED = this.MOVE_SPEED;
+	this.HACCEL = this.MOVE_ACCEL;
 	this.HDECCEL = this.HACCEL;
 	
-	//suite of variables for the vertical movement		(ALL_CAPS = psuedo constant)
+	//suite of variables for the vertical movement
 	this.vspeed = 0;
-	this.MAX_VSPEED = 4;
-	this.VACCEL = 1;
+	this.MAX_VSPEED = this.MOVE_SPEED;
+	this.VACCEL = this.MOVE_ACCEL;
 	this.VDECCEL = this.VACCEL;
 }
 
 Mob.prototype.update = function() {
 	
 	if(this.aggroed) {
+		
+		//this code changes max speeds to fix the thing where up and right = faster than up or right
+		// (there has to be a better way to do this?)
+		if(Math.abs(this.game.baatar.x - this.x) > 4 && Math.abs(this.game.baatar.y - this.y) > 4) {
+			this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
+			this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
+			this.HACCEL = this.MOVE_ACCEL * 0.707;
+			this.VACCEL = this.MOVE_ACCEL * 0.707;
+		} else {
+			this.MAX_HSPEED = this.MOVE_SPEED;
+			this.MAX_VSPEED = this.MOVE_SPEED;
+			this.HACCEL = this.MOVE_ACCEL;
+			this.VACCEL = this.MOVE_ACCEL;
+		}
+		this.HDECCEL = this.HACCEL;
+		this.VDECCEL = this.VACCEL;
+		
 		if(Math.abs(this.game.baatar.x - this.x) > 4) {
 			//sanitizing input (why is no press = undefined?  not false?)
 			this.d = this.game.baatar.x > this.x;

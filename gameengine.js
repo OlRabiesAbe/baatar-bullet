@@ -31,6 +31,7 @@ function GameEngine() {
     this.baatar = null;
     this.entities = [];
     this.tiles = [];
+	this.bullets = [];
     this.hud_elements = [];
     this.all_entities = [];
     this.current_scene = "default";
@@ -109,6 +110,11 @@ GameEngine.prototype.addHUDElement = function (entity) {
 	this.hud_elements.push(entity);
     this.all_entities.push(entity);
 }
+GameEngine.prototype.addBullet = function (entity) {
+    console.log(' : the game engine itself added a bullet');
+	this.bullets.push(entity);
+    this.all_entities.push(entity);
+}
 
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -119,6 +125,9 @@ GameEngine.prototype.draw = function () {
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw(this.ctx);
     }
+	for (var i = 0; i < this.bullets.length; i++) {
+        this.bullets[i].draw(this.ctx);
+    }
 	for (var i = 0; i < this.hud_elements.length; i++) {
         this.hud_elements[i].draw(this.ctx);
     }
@@ -126,26 +135,39 @@ GameEngine.prototype.draw = function () {
 }
 
 GameEngine.prototype.update = function () {
+	//handling mouseclicks
 	this.mouseTimer += this.clockTick;
 	if (this.click && this.mouseTimer >= 0.05) {
 		this.click = false;
 		this.mouseTimer = 0;
 	}
+	
+	//updating -everything-
     for (var i = 0; i < this.entities.length; i++) {
         var entity = this.entities[i];
-        if (!entity.removeFromWorld) {
+        if (!entity.remove_from_world) {
             entity.update();
         }
     }
 	for (var i = 0; i < this.tiles.length; i++) {
         var entity = this.tiles[i];
-        if (!entity.removeFromWorld) {
+        if (!entity.remove_from_world) {
             entity.update();
         }
     }
+	var non_bullets = []; //array of bullets to be deleted
+	for (var i = 0; i < this.bullets.length; i++) {
+        var entity = this.bullets[i];
+        if (!entity.remove_from_world) {
+            entity.update();
+        } else non_bullets.push(i);
+    }
+	for(var i = 0; i < non_bullets.length; i++) { //splicing out relevant bullets
+		this.bullets.splice(non_bullets[i], ++non_bullets[i]);
+	}
 	for (var i = 0; i < this.hud_elements.length; i++) {
         var entity = this.hud_elements[i];
-        if (!entity.removeFromWorld) {
+        if (!entity.remove_from_world) {
             entity.update();
         }
     }
@@ -161,7 +183,7 @@ function Entity(game, x, y) {
     this.game = game;
     this.x = x;
     this.y = y;
-    this.removeFromWorld = false;
+    this.remove_from_world = false;
 }
 
 Entity.prototype.update = function () {
