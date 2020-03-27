@@ -66,7 +66,7 @@ Timeline:
 	3/20/20 – rip movement, collision, relevant code from UTCG, repackage into new engine
 			(keep tile-based level design)
 	
-	3/21/20 – design braindead enemy class, design scene manager based on Brent’s
+	3/21/20 – design braindead enemy class, design scene manage
 	
 	3/22/20 – implement better ai, can’t walk through walls, can walk towards player
 
