@@ -28,6 +28,7 @@ function Bullet(game, owner, bearing, pattern = "straight") {
 	this.game = game;
 	this.owner = owner;
 	this.bearing = bearing;
+	console.log("bullet created w bearing " +  this.bearing);
 	this.pattern = pattern;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/bullet_temp.png"), 0, 0, 16, 16, 1, 1, true, false);
 	this.x = owner.x; this.y = owner.y;
