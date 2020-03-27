@@ -1,8 +1,3 @@
-/*UPDATE
-	ME
-YOU
-	SWINE*/
-
 Mob.prototype = new Entity();
 
 function Mob(game, x, y, mob_type) {
