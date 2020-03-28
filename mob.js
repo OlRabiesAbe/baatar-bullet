@@ -8,16 +8,18 @@ function Mob(game, x, y, mob_type) {
 	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
 	this.width = 32; this.height = 64;
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
-	this.mob_type = mob_type;
+	this.mob_type = this.name = mob_type;
+	this.team = "enemy";
 	this.aggroed = true;
 	
 	//hyper centralized variable suite so i can make tweaks very easily
-	this.MOVE_SPEED = 4/*maxperframe*/;
-	this.MOVE_ACCEL = 1/*unitsperframe*/;
+	this.MOVE_SPEED = 1/*maxperframe*/;
+	this.MOVE_ACCEL = 0.25/*unitsperframe*/;
+	this.MAX_HP = 100;
 	
 	//suite of variables for horizontal movement
 	this.hspeed = 0;
-	this.MAX_HSPEED = this.MOVE_SPEED;
+	this.MAX_HSPEED = this.MOVE_SPEED; // all actual movements speeds divided by four because of quarter frames
 	this.HACCEL = this.MOVE_ACCEL;
 	this.HDECCEL = this.HACCEL;
 	
@@ -26,20 +28,29 @@ function Mob(game, x, y, mob_type) {
 	this.MAX_VSPEED = this.MOVE_SPEED;
 	this.VACCEL = this.MOVE_ACCEL;
 	this.VDECCEL = this.VACCEL;
+	
+	//suite of variables for hp
+	this.hp = this.MAX_HP;
 }
 
 Mob.prototype.update = function() {
+	
+	if(this.hp <= 0){
+		this.remove_from_world == true;
+		console.log(this.name + ", of clan " + this.team + ": of my bones, the hills");
+		return;
+	}
 	
 	if(this.aggroed) {
 		
 		//this code changes max speeds to fix the thing where up and right = faster than up or right
 		// (there has to be a better way to do this?)
-		if(Math.abs(this.game.baatar.x - this.x) > 4 && Math.abs(this.game.baatar.y - this.y) > 4) {
+		if(Math.abs(this.game.baatar.x - this.x) > 4 && Math.abs(this.game.baatar.y - this.y) > 4 && this.MAX_HSPEED != this.MOVE_SPEED * 0.707) {
 			this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
 			this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
 			this.HACCEL = this.MOVE_ACCEL * 0.707;
 			this.VACCEL = this.MOVE_ACCEL * 0.707;
-		} else {
+		} else if(this.MAX_HSPEED != this.MOVE_SPEED) {
 			this.MAX_HSPEED = this.MOVE_SPEED;
 			this.MAX_VSPEED = this.MOVE_SPEED;
 			this.HACCEL = this.MOVE_ACCEL;
@@ -48,6 +59,12 @@ Mob.prototype.update = function() {
 		this.HDECCEL = this.HACCEL;
 		this.VDECCEL = this.VACCEL;
 		
+		/*
+		* 1. Legalize obesity
+		* 2. Prohibit the use of plaid
+		* 3. Get the president a taller hat
+		* 5. DON'T LET THE CHILDREN SLEEP.
+		*/
 		if(Math.abs(this.game.baatar.x - this.x) > 4) {
 			//sanitizing input (why is no press = undefined?  not false?)
 			this.d = this.game.baatar.x > this.x;
@@ -94,4 +111,9 @@ Mob.prototype.draw = function(ctx) {
 // setter func to move a [whatever this is] off the grid
 Mob.prototype.setFreeXY = function(x, y) {
 	this.x = x; this.y = y;
+}
+
+Mob.prototype.hit = function(damage) {
+	this.hp -= damage;
+	console.log(this.name + ", of clan " + this.team + ":ow, on a acale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }

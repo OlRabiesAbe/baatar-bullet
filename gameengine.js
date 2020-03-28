@@ -149,12 +149,6 @@ GameEngine.prototype.update = function () {
             entity.update();
         }
     }
-	for (var i = 0; i < this.tiles.length; i++) {
-        var entity = this.tiles[i];
-        if (!entity.remove_from_world) {
-            entity.update();
-        }
-    }
 	var non_bullets = []; //array of bullets to be deleted
 	for (var i = 0; i < this.bullets.length; i++) {
         var entity = this.bullets[i];
@@ -165,6 +159,12 @@ GameEngine.prototype.update = function () {
 	for(var i = 0; i < non_bullets.length; i++) { //splicing out relevant bullets
 		this.bullets.splice(non_bullets[i], ++non_bullets[i]);
 	}
+	for (var i = 0; i < this.tiles.length; i++) {
+        var entity = this.tiles[i];
+        if (!entity.remove_from_world) {
+            entity.update();
+        }
+    }
 	for (var i = 0; i < this.hud_elements.length; i++) {
         var entity = this.hud_elements[i];
         if (!entity.remove_from_world) {
@@ -175,7 +175,9 @@ GameEngine.prototype.update = function () {
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
-    this.update();
+	//four sub frames between each actual frame
+	//helps w/ collision caculation
+	for(var i = 0; i < 4; ++i) this.update();
     this.draw();
 }
 
