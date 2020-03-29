@@ -36,7 +36,7 @@ function Mob(game, x, y, mob_type) {
 Mob.prototype.update = function() {
 	
 	if(this.hp <= 0){
-		this.remove_from_world == true;
+		this.remove_from_world = true;
 		console.log(this.name + ", of clan " + this.team + ": of my bones, the hills");
 		return;
 	}
