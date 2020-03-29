@@ -59,6 +59,8 @@ ASSET_MANAGER.queueDownload("./img/tile_temp.png");
 ASSET_MANAGER.queueDownload("./img/mob_temp.png");
 ASSET_MANAGER.queueDownload("./img/cursor_temp.png");
 ASSET_MANAGER.queueDownload("./img/bullet_temp.png");
+ASSET_MANAGER.queueDownload("./img/hp_bar_holder_temp.png");
+ASSET_MANAGER.queueDownload("./img/hp_bar_vial_temp.png");
 
 
 ASSET_MANAGER.downloadAll(function () {
@@ -103,6 +105,11 @@ ASSET_MANAGER.downloadAll(function () {
 	test_scene.addHUDElement(cursor);
 	var baatar = new Baatar(game, 1, 1, cursor);
 	test_scene.addEntity(baatar);
+	var hpbar = new HpBar(game, baatar);
+	test_scene.addHUDElement(hpbar);
+	
+	var thing = new Thing(game, 17, 1, "test", "hoohaa");
+	test_scene.addEntity(thing);
 	
 	scene_manager.setScene("test scene");
 });

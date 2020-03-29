@@ -36,3 +36,22 @@ Cursor.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y);
 }
 
+
+HpBar.prototype = new Entity();
+
+function HpBar(game, baatar) {
+	this.game = game;
+	this.baatar = baatar;
+	this.width = 400; this.height = 32;
+	this.holder = new Animation(ASSET_MANAGER.getAsset("./img/hp_bar_holder_temp.png"), 0, 0, this.width, this.height, 1, 1, true, false);
+	this.vial = new Animation(ASSET_MANAGER.getAsset("./img/hp_bar_vial_temp.png"), 0, 0, this.width * (this.baatar.hp/this.baatar.MAX_HP), this.height, 1, 1, true, false);
+}
+
+HpBar.prototype.update = function() {
+	this.vial = new Animation(ASSET_MANAGER.getAsset("./img/hp_bar_vial_temp.png"), 0, 0, this.width * (this.baatar.hp/this.baatar.MAX_HP), this.height, 1, 1, true, false);
+}
+
+HpBar.prototype.draw = function(ctx) {
+	this.holder.drawFrame(this.game.clockTick, ctx, 0, 0);
+	this.vial.drawFrame(this.game.clockTick, ctx, 0, 0);
+}

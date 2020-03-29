@@ -43,8 +43,9 @@ Mob.prototype.update = function() {
 	
 	if(this.aggroed) {
 		
-		//this code changes max speeds to fix the thing where up and right = faster than up or right
+		// this code changes max speeds to fix the thing where up and right = faster than up or right
 		// (there has to be a better way to do this?)
+		// update: tried to improve by checking if its already right before assigning
 		if(Math.abs(this.game.baatar.x - this.x) > 4 && Math.abs(this.game.baatar.y - this.y) > 4 && this.MAX_HSPEED != this.MOVE_SPEED * 0.707) {
 			this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
 			this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
@@ -116,4 +117,12 @@ Mob.prototype.setFreeXY = function(x, y) {
 Mob.prototype.hit = function(damage) {
 	this.hp -= damage;
 	console.log(this.name + ", of clan " + this.team + ":ow, on a acale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
+}
+
+//proof of concept
+class Thing extends Mob {
+	constructor(game, x, y, mob_type, butt) {
+		super(game, x, y, mob_type);
+		this.bum = butt;
+	}
 }
