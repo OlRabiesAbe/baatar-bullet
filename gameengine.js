@@ -31,7 +31,7 @@ function GameEngine() {
     this.baatar = null;
     this.entities = [];
     this.tiles = [];
-	this.bullets = [];
+    this.bullets = [];
     this.hud_elements = [];
     this.all_entities = [];
     this.current_scene = "default";
