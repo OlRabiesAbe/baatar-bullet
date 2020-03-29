@@ -42,7 +42,7 @@ Bullet.prototype.handleEntityCollision = function(entity) {
 		else if (this.x < entity.x + (entity.width*.66) || this.x > entity.x + (entity.width*1.33)) {}
 		else {
 			entity.hit(40);
-			this.remove_from_world;
+			this.remove_from_world = true;
 		}
 	}
 	
