@@ -37,17 +37,17 @@ function Scene(game, ctx, scene_name, baatar, entities = [], tiles = [], hud_ele
 }
 
 Scene.prototype.addEntity = function (entity) {
-    console.log(" : " + this.scene_name + ' added an entity');
+    console.log(this.scene_name + " : " + ' added an entity');
 	this.entities.push(entity);
     this.all_entities.push(entity);
 }
 Scene.prototype.addTile = function (entity) {
-    console.log(" : " + this.scene_name + ' added a tile');
+    console.log(this.scene_name + " : " +  ' added a tile');
 	this.tiles.push(entity);
     this.all_entities.push(entity);
 }
 Scene.prototype.addHUDElement = function (entity) {
-    console.log(" : " + this.scene_name + " added a hud element");
+    console.log(this.scene_name + " : " + " added a hud element");
 	this.hud_elements.push(entity);
     this.all_entities.push(entity);
 }

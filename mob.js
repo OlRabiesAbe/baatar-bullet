@@ -116,7 +116,7 @@ Mob.prototype.setFreeXY = function(x, y) {
 
 Mob.prototype.hit = function(damage) {
 	this.hp -= damage;
-	console.log(this.name + ", of clan " + this.team + ":ow, on a acale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
+	console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
 //proof of concept

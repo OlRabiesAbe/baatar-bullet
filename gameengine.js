@@ -147,30 +147,29 @@ GameEngine.prototype.update = function () {
         var entity = this.entities[i];
         if (!entity.remove_from_world) {
             entity.update();
-        }
+        } else this.entities.splice(i, i+1);
     }
-	var non_bullets = []; //array of bullets to be deleted
 	for (var i = 0; i < this.bullets.length; i++) {
         var entity = this.bullets[i];
         if (!entity.remove_from_world) {
             entity.update();
-        } else non_bullets.push(i);
+        } else this.bullets.splice(i, i+1);
     }
-	for(var i = 0; i < non_bullets.length; i++) { //splicing out relevant bullets
-		this.bullets.splice(non_bullets[i], ++non_bullets[i]);
-	}
 	for (var i = 0; i < this.tiles.length; i++) {
         var entity = this.tiles[i];
         if (!entity.remove_from_world) {
             entity.update();
-        }
+        } else this.tiles.splice(i, i+1);
     }
 	for (var i = 0; i < this.hud_elements.length; i++) {
         var entity = this.hud_elements[i];
         if (!entity.remove_from_world) {
             entity.update();
-        }
+        } else this.hud_elements.splice(i, i+1);
     }
+	
+	for(var i = 0; i < this.all_entities; i++)
+		if(all_entities[i].remove_from_world) this.all_entities.splice(i, i+1);
 }
 
 GameEngine.prototype.loop = function () {
