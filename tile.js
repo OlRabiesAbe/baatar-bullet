@@ -73,9 +73,8 @@ class HalfTile extends Tile {
 	constructor(game, img, imgX, imgY, x, y) {
 		//all xy coords are automatically converted to the 64 unit grid
 		// xy: 2,3 = 128,192
-		super(game, x * 64, y * 64)
-		this.width = 64; this.height = 64; 
-		this.animation = new Animation(ASSET_MANAGER.getAsset(img), imgX, imgY, this.width, this.height, 1, 1, true, false);
+		super(game, img, imgX, imgY, x, y);
+		console.log(img, this.width);
 		
 		//collision specifics suite
 		this.HORZ_COLL_RADIUS = 16; //how far a tile's hitbox extends out to the left and right
@@ -129,7 +128,7 @@ class HalfTile extends Tile {
 		
 	}
 
-	update(ctx) { //handle collision on all entities
+	/*update(ctx) { //handle collision on all entities
 		for (var i = 0; i < this.game.entities.length; i++) this.handleEntityCollision(this.game.entities[i]);
 		for (var i = 0; i < this.game.bullets.length; i++) this.handleBulletCollision(this.game.bullets[i]);
 	}
@@ -139,5 +138,5 @@ class HalfTile extends Tile {
 	// setter func to move a [whatever this is] off the grid
 	setFreeXY(x, y) {
 		this.x = x; this.y = y;
-	}
+	}*/
 }

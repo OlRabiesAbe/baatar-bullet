@@ -73,32 +73,30 @@ ASSET_MANAGER.downloadAll(function () {
 	var test_scene = new Scene(game, ctx, "test scene");
 	scene_manager.addScene(test_scene);
 	
-	var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12, 11);
+	var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 13, 8);
 	test_scene.addTile(tile);
+	console.log(tile);
 	for(var i = 0; i < 8; i++){
-		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12 + i, 4);
+		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 12 + i, 4);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 8; i++){
-		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 12 + i, 6);
+		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 12 + i, 6);
 		test_scene.addTile(tile);
 	}
-	for(var i = 0; i < 5; i++){
+	for(var i = 0; i < 4; i++){
 		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 2, 2 + i);
 		test_scene.addTile(tile);
 	}
-	for(var i = 0; i < 5; i++){
-		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
+	for(var i = 0; i < 6; i++){
+		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 2 + i, 6);
 		test_scene.addTile(tile);
 	}
 	for(var i = 0; i < 5; i++){
-		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 7);
+		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
 		test_scene.addTile(tile);
 	}
-	for(var i = 0; i < 5; i++){
-		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
-		test_scene.addTile(tile);
-	}
+	
 	var mob = new Mob(game, 18, 9, "test");
 	test_scene.addEntity(mob);
 	var cursor = new Cursor(game);

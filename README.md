@@ -63,4 +63,23 @@ OST:
 
 Timeline:
 
-	4/21/20: Devise new timeline
+	3/20/20 – rip movement, collision, relevant code from UTCG, repackage into new engine
+			(keep tile-based level design)
+	
+	3/21/20 – design braindead enemy class, design scene manage
+	
+	3/22/20 – implement better ai, can’t walk through walls, can walk towards player
+
+	3/23/20 – design bullet function, when called spawns a bullet in straight line
+	
+	3/24/20 – implement mouse tracking
+
+	3/25/20 – implement player shooting (default straight bullet ofc)
+
+	3/26/20 – implement bullet-agent hitboxes
+	
+	3/27/20 – implement hp
+
+	3/28/20 – implement hud hp display
+
+	3/29/20 – fugure it ut
