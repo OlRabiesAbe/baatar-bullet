@@ -40,6 +40,11 @@ function Baatar(game, x = 2, y = 2, cursor = null) {
 
 Baatar.prototype.update = function() {
 	
+	if(this.game.f) {
+		this.hp -= 25;
+		this.game.f = false;
+	}
+	
 	if(this.hp <= 0){
 		this.remove_from_world == true;
 		return;

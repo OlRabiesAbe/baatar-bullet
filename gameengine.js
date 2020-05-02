@@ -30,7 +30,9 @@ Timer.prototype.tick = function () {
 function GameEngine() {
     this.baatar = null;
     this.entities = [];
+	this.floor_tiles = [];
     this.tiles = [];
+	this.roof_tiles = [];
     this.bullets = [];
     this.hud_elements = [];
     this.all_entities = [];
@@ -79,6 +81,8 @@ GameEngine.prototype.startInput = function () {
 			if (String.fromCharCode(e.which) === 'S') that.s = true;
 			if (String.fromCharCode(e.which) === ' ') that.space = true;
 			
+			if (String.fromCharCode(e.which) === 'F') that.f = true;
+			
 			e.preventDefault();
     }, false);
 	this.ctx.canvas.addEventListener("click", function (e) {
@@ -91,10 +95,13 @@ GameEngine.prototype.startInput = function () {
 		if (String.fromCharCode(e.which) === 'A') that.a = false;
 		if (String.fromCharCode(e.which) === 'S') that.s = false;
 		if (String.fromCharCode(e.which) === ' ') that.space = false;
+		
+		if (String.fromCharCode(e.which) === 'F') that.f = false;
 		check = false;
 	}, false);
 }
 
+//buncha funcs to push things to the gameengine
 GameEngine.prototype.addEntity = function (entity) {
     console.log(' : the game engine itself added an entity');
 	this.entities.push(entity);
@@ -116,9 +123,13 @@ GameEngine.prototype.addBullet = function (entity) {
     this.all_entities.push(entity);
 }
 
+//this func draws visible things to the canvas html element
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.save();
+	for (var i = 0; i < this.floor_tiles.length; i++) {
+        this.floor_tiles[i].draw(this.ctx);
+    }
 	for (var i = 0; i < this.tiles.length; i++) {
         this.tiles[i].draw(this.ctx);
     }
@@ -128,21 +139,19 @@ GameEngine.prototype.draw = function () {
 	for (var i = 0; i < this.bullets.length; i++) {
         this.bullets[i].draw(this.ctx);
     }
+	for (var i = 0; i < this.roof_tiles.length; i++) {
+        this.roof_tiles[i].draw(this.ctx);
+    }
 	for (var i = 0; i < this.hud_elements.length; i++) {
         this.hud_elements[i].draw(this.ctx);
     }
     this.ctx.restore();
 }
 
-GameEngine.prototype.update = function () {
-	//handling mouseclicks
-	this.mouseTimer += this.clockTick;
-	if (this.click && this.mouseTimer >= 0.05) {
-		this.click = false;
-		this.mouseTimer = 0;
-	}
+
+//this function updates all things that need to be updated four times per frame (mainly stuff todo w collision)
+GameEngine.prototype.quarterFrameUpdate = function () {
 	
-	//updating -everything-
     for (var i = 0; i < this.entities.length; i++) {
         var entity = this.entities[i];
         if (!entity.remove_from_world) {
@@ -161,22 +170,49 @@ GameEngine.prototype.update = function () {
             entity.update();
         } else this.tiles.splice(i, i+1);
     }
+	
+	for(var i = 0; i < this.all_entities; i++)
+		if(all_entities[i].remove_from_world) this.all_entities.splice(i, i+1);
+}
+
+//this function updates everything that only needs to be updated once per frame (most things)
+GameEngine.prototype.frameUpdate = function () {
+	//handling mouseclicks
+	this.mouseTimer += this.clockTick;
+	if (this.click && this.mouseTimer >= 0.05) {
+		this.click = false;
+		this.mouseTimer = 0;
+	}
+	
+	for (var i = 0; i < this.floor_tiles.length; i++) {
+        var entity = this.floor_tiles[i];
+        if (!entity.remove_from_world) {
+            entity.update();
+        } else this.tiles.splice(i, i+1);
+    }
+	for (var i = 0; i < this.roof_tiles.length; i++) {
+        var entity = this.roof_tiles[i];
+        if (!entity.remove_from_world) {
+            entity.update();
+        } else this.tiles.splice(i, i+1);
+    }
+	
 	for (var i = 0; i < this.hud_elements.length; i++) {
         var entity = this.hud_elements[i];
         if (!entity.remove_from_world) {
             entity.update();
         } else this.hud_elements.splice(i, i+1);
     }
-	
-	for(var i = 0; i < this.all_entities; i++)
-		if(all_entities[i].remove_from_world) this.all_entities.splice(i, i+1);
 }
+
+
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
 	//four sub frames between each actual frame
 	//helps w/ collision caculation
-	for(var i = 0; i < 4; ++i) this.update();
+	for(var i = 0; i < 4; ++i) this.quarterFrameUpdate();
+	this.frameUpdate();
     this.draw();
 }
 

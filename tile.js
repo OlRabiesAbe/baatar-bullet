@@ -1,3 +1,26 @@
+/*class TileArray {
+	constructor() {
+		this.tilesList = [];
+		this.tilesArray = createArray(128,128);
+	}
+	
+	pushTilesArray(newTilesArray){
+		var row = 0;
+		var count = 0;
+		var countBuffer = 0;
+		for(var i = 0; i < str.length; i++) {
+		//Tile(game, img, framex, framey, x, y, posX, posY, width, height, frameW, frameH, allSides)
+		//types of entities: Platform, Enemy, Other
+			switch(str.charAt(i)) {
+				case 'T':
+					var tile = new Tile(game, "./img/tile_temp.png", 0, 0, count, row);
+					break;
+				default:
+					
+			}
+	}
+}*/
+
 class Tile extends Entity {
 	constructor(game, img, imgX, imgY, x, y) {
 		//all xy coords are automatically converted to the 64 unit grid
@@ -14,12 +37,11 @@ class Tile extends Entity {
 	}
 
 	handleEntityCollision(entity) {
-		
 		//checking if the entity is colliding with this tile. last else = a collision is indeed occuring
-		/*if(entity.y < this.y - this.VERT_UPPER_COLL_RADIUS || entity.y - entity.height > this.y + this.height + this.VERT_UPPER_COLL_RADIUS) {}
+		if(entity.y < this.y - this.VERT_UPPER_COLL_RADIUS || entity.y - entity.height > this.y + this.height + this.VERT_UPPER_COLL_RADIUS) {}
 		else if (entity.x + (entity.width/2)+1 < this.x - this.HORZ_COLL_RADIUS || entity.x - (entity.width/2)-1 > this.x + this.width + this.HORZ_COLL_RADIUS) {}
 		
-		else*/ { //a collision has occured, displace entity out of tile
+		else { //a collision has occured, displace entity out of tile
 			//a tile's left/right colliders extends HCR units into and out of the tile
 					// ~+LEFT CASE+~
 			if(entity.x + (entity.width/2) > this.x && entity.x + (entity.width/2) < this.x + this.HORZ_COLL_RADIUS 
@@ -49,11 +71,9 @@ class Tile extends Entity {
 	}
 
 	handleBulletCollision(entity) {
-		
 		if(entity.y < this.y || entity.y > this.y + this.height) {}
 		else if (entity.x < this.x || entity.x > this.x + this.width) {}
 		else entity.remove_from_world = true;
-		
 	}
 
 	update(ctx) { //handle collision on all entities
@@ -77,6 +97,7 @@ class HalfTile extends Tile {
 		console.log(img, this.width);
 		
 		//collision specifics suite
+		//these are different than Tile's, but I dont know why. Too complicated to figure out
 		this.HORZ_COLL_RADIUS = 16; //how far a tile's hitbox extends out to the left and right
 		this.VERT_LOWER_COLL_RADIUS = 32; //'' how far a tile's vertical hitboxes extend down
 		this.VERT_UPPER_COLL_RADIUS = 8; // how far a tile's vertical hitboxes extend up
@@ -85,7 +106,6 @@ class HalfTile extends Tile {
 	}
 
 	handleEntityCollision(entity) {
-		
 		//checking if the entity is colliding with this tile. last else = a collision is indeed occuring
 		if(entity.y < this.y - this.VERT_LOWER_COLL_RADIUS || entity.y - (entity.width/2) > this.y + this.height + this.VERT_LOWER_COLL_RADIUS) {}
 		else if (entity.x + entity.width < this.x - this.HORZ_COLL_RADIUS || entity.x > this.x + this.width + this.HORZ_COLL_RADIUS) {}
@@ -106,9 +126,9 @@ class HalfTile extends Tile {
 				entity.hspeed = 0;
 			}
 					// ~+TOP CASE+~
-			if(entity.y > this.y - this.VERT_UPPER_COLL_RADIUS && entity.y < this.y + this.VERT_LOWER_COLL_RADIUS 
+			if(entity.y > this.y && entity.y < this.y + this.VERT_LOWER_COLL_RADIUS 
 							&& entity.x + (entity.width/2) > this.x + this.ARB_HITBOX_BUFFER && entity.x - (entity.width/2) < this.x + this.width - this.ARB_HITBOX_BUFFER) {
-				entity.y = this.y - this.VERT_UPPER_COLL_RADIUS;
+				entity.y = this.y;
 				entity.vspeed = 0;
 			}
 					// ~+BOTTOM CASE+~
@@ -121,11 +141,9 @@ class HalfTile extends Tile {
 	}
 
 	handleBulletCollision(entity) {
-		
 		if(entity.y < this.y || entity.y > this.y + (this.height/2)) {}
 		else if (entity.x < this.x || entity.x > this.x + this.width) {}
 		else entity.remove_from_world = true;
-		
 	}
 
 	/*update(ctx) { //handle collision on all entities
