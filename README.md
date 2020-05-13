@@ -60,7 +60,3 @@ Art Design:
 OST:
 	Due to a total absence of musical talent/skill, music will be entirely ripped from soundtracks I like. This game will not be sold, so no matter.
 	Sound effects will either be recorded via my microphone and edited in Audacity, or ripped from the internet/other games.
-
-Timeline:
-
-	4/21/20: make new timeline
