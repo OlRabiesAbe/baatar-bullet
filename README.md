@@ -60,3 +60,11 @@ Art Design:
 OST:
 	Due to a total absence of musical talent/skill, music will be entirely ripped from soundtracks I like. This game will not be sold, so no matter.
 	Sound effects will either be recorded via my microphone and edited in Audacity, or ripped from the internet/other games.
+
+Plan as it stands:
+	-5/14/20: fully implement roof and floor tiles
+	-5/15/20: teach enemies to shoot you
+	-5/16/20: implement a tile array that functions with gameengine and scenemanager
+	-5/17/20: 
+	-5/18/20: research the prospect of full-screening the game, or else implement camera
+	-5/19/20: create new PAIS
