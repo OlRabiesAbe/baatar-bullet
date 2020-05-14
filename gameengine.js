@@ -184,7 +184,7 @@ GameEngine.prototype.frameUpdate = function () {
 		this.mouseTimer = 0;
 	}
 	
-	for (var i = 0; i < this.floor_tiles.length; i++) {
+	/*for (var i = 0; i < this.floor_tiles.length; i++) {
         var entity = this.floor_tiles[i];
         if (!entity.remove_from_world) {
             entity.update();
@@ -195,7 +195,7 @@ GameEngine.prototype.frameUpdate = function () {
         if (!entity.remove_from_world) {
             entity.update();
         } else this.tiles.splice(i, i+1);
-    }
+    }*/
 	
 	for (var i = 0; i < this.hud_elements.length; i++) {
         var entity = this.hud_elements[i];

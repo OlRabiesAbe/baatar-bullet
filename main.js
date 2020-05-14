@@ -56,6 +56,7 @@ var ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
 ASSET_MANAGER.queueDownload("./img/tile_temp.png");
+ASSET_MANAGER.queueDownload("./img/floor_temp.png");
 ASSET_MANAGER.queueDownload("./img/mob_temp.png");
 ASSET_MANAGER.queueDownload("./img/cursor_temp.png");
 ASSET_MANAGER.queueDownload("./img/bullet_temp.png");
@@ -74,40 +75,45 @@ ASSET_MANAGER.downloadAll(function () {
 	scene_manager.addScene(test_scene);
 	
 	var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 13, 8);
-	test_scene.addTile(tile);
-	console.log(tile);
+	test_scene.addEntity(tile, "tile");
 	for(var i = 0; i < 8; i++){
 		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 12 + i, 4);
-		test_scene.addTile(tile);
+		test_scene.addEntity(tile, "tile");
 	}
 	for(var i = 0; i < 8; i++){
 		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 12 + i, 6);
-		test_scene.addTile(tile);
+		test_scene.addEntity(tile, "tile");
 	}
 	for(var i = 0; i < 4; i++){
 		var tile = new Tile(game, "./img/tile_temp.png", 0, 0, 2, 2 + i);
-		test_scene.addTile(tile);
+		test_scene.addEntity(tile, "tile");
 	}
 	for(var i = 0; i < 6; i++){
 		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 2 + i, 6);
-		test_scene.addTile(tile);
+		test_scene.addEntity(tile, "tile");
 	}
 	for(var i = 0; i < 5; i++){
 		var tile = new HalfTile(game, "./img/tile_temp.png", 0, 0, 3 + i, 2);
-		test_scene.addTile(tile);
+		test_scene.addEntity(tile, "tile");
+	}
+	for(var i = 0; i < 15; i++){
+		for(var j = 0; j < 15; j++) {
+			var tile = new Tile(game, "./img/floor_temp.png", 0, 0, 3 + i, 2 + j);
+			test_scene.addEntity(tile, "floor");
+		}
 	}
 	
 	var mob = new Mob(game, 18, 9, "test");
-	test_scene.addEntity(mob);
+	test_scene.addEntity(mob, "entity");
 	var cursor = new Cursor(game);
-	test_scene.addHUDElement(cursor);
+	test_scene.addEntity(cursor, "hud");
 	var baatar = new Baatar(game, 1, 1, cursor);
-	test_scene.addEntity(baatar);
+	test_scene.addEntity(baatar, "entity");
 	var hpbar = new HpBar(game, baatar);
-	test_scene.addHUDElement(hpbar);
+	test_scene.addEntity(hpbar, "hud");
 	
 	var thing = new Thing(game, 17, 1, "test", "hoohaa");
-	test_scene.addEntity(thing);
+	test_scene.addEntity(thing, "entity");
 	
 	scene_manager.setScene("test scene");
 });

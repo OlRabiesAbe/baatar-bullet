@@ -14,7 +14,9 @@ SceneManager.prototype.addScene = function(scene) {
 SceneManager.prototype.setScene = function(scene_name) {
 	var scene = this.scenes.get(scene_name);
 	this.game.entities = scene.entities;
+	this.game.floor_tiles = scene.floor_tiles;
 	this.game.tiles = scene.tiles;
+	this.game.roof_tiles = scene.roof_tiles;
 	this.game.hud_elements = scene.hud_elements;
 	this.game.all_entities = scene.all_entities;
 	this.game.current_scene = scene_name;
@@ -30,29 +32,45 @@ SceneManager.prototype.setScene = function(scene_name) {
 // a scene is more or less just a list of objects that comprise a level
 // objects can be added through parameters or manually via below functions
 // Scene(game, ctx, name for the scene, reference to the baatar)
-function Scene(game, ctx, scene_name, baatar, entities = [], tiles = [], hud_elements = [], all_entities = []) {
+function Scene(game, ctx, scene_name, baatar, entities = [], floor_tiles = [], tiles = [], roof_tiles = [], hud_elements = [], all_entities = []) {
 	this.game = game;
 	this.ctx = ctx;
 	this.scene_name = scene_name;
 	this.entities = entities;
+	this.floor_tiles = floor_tiles;
 	this.tiles = tiles;
+	this.roof_tiles = roof_tiles;
 	this.hud_elements = hud_elements;
 	this.all_entities = all_entities;
 }
 
 //the expected way to init a scene is by adding entity by entity.
-Scene.prototype.addEntity = function (entity) {
-    console.log(this.scene_name + " : " + ' added an entity');
-	this.entities.push(entity);
-    this.all_entities.push(entity);
-}
-Scene.prototype.addTile = function (entity) {
-    console.log(this.scene_name + " : " +  ' added a tile');
-	this.tiles.push(entity);
-    this.all_entities.push(entity);
-}
-Scene.prototype.addHUDElement = function (entity) {
-    console.log(this.scene_name + " : " + " added a hud element");
-	this.hud_elements.push(entity);
-    this.all_entities.push(entity);
+//entities are added in the form of addEntity(theEntityItself, whatTypeItIs)
+//currently valid types are entity tile floor roof & hud
+Scene.prototype.addEntity = function (entity, string) {
+    console.log(this.scene_name + " : " + ' attempting to add a(n) ' + string + ' entity');
+	switch(string) {
+		case "entity":
+			this.entities.push(entity);
+			this.all_entities.push(entity);
+			break;
+		case "tile":
+			this.tiles.push(entity);
+			this.all_entities.push(entity);
+			break;
+		case "floor":
+			this.floor_tiles.push(entity);
+			this.all_entities.push(entity);
+			break;
+		case "roof":
+			this.roof_tiles.push(entity);
+			this.all_entities.push(entity);
+			break;
+		case "hud":
+			this.hud_elements.push(entity);
+			this.all_entities.push(entity);
+			break;
+		default: console.log(this.scene_name + " : type invalid")
+	}
+	
 }
