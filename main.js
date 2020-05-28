@@ -112,8 +112,5 @@ ASSET_MANAGER.downloadAll(function () {
 	var hpbar = new HpBar(game, baatar);
 	test_scene.addEntity(hpbar, "hud");
 	
-	var thing = new Thing(game, 17, 1, "test", "hoohaa");
-	test_scene.addEntity(thing, "entity");
-	
 	scene_manager.setScene("test scene");
 });

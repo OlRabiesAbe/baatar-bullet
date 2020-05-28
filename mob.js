@@ -10,7 +10,6 @@ function Mob(game, x, y, mob_type) {
 	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
 	this.mob_type = this.name = mob_type;
 	this.team = "enemy";
-	this.aggroed = true;
 	
 	//hyper centralized variable suite so i can make tweaks very easily
 	this.MOVE_SPEED = 1/*maxperframe*/;
@@ -41,68 +40,25 @@ Mob.prototype.update = function() {
 		return;
 	}
 	
-	if(this.aggroed) {
-		
-		// this code changes max speeds to fix the thing where up and right = faster than up or right
-		// (there has to be a better way to do this?)
-		// update: tried to improve by checking if its already right before assigning
-		if(Math.abs(this.game.baatar.x - this.x) > 4 && Math.abs(this.game.baatar.y - this.y) > 4 && this.MAX_HSPEED != this.MOVE_SPEED * 0.707) {
-			this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
-			this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
-			this.HACCEL = this.MOVE_ACCEL * 0.707;
-			this.VACCEL = this.MOVE_ACCEL * 0.707;
-		} else if(this.MAX_HSPEED != this.MOVE_SPEED) {
-			this.MAX_HSPEED = this.MOVE_SPEED;
-			this.MAX_VSPEED = this.MOVE_SPEED;
-			this.HACCEL = this.MOVE_ACCEL;
-			this.VACCEL = this.MOVE_ACCEL;
-		}
-		this.HDECCEL = this.HACCEL;
-		this.VDECCEL = this.VACCEL;
-		
-		/*
-		* 1. Legalize obesity
-		* 2. Prohibit the use of plaid
-		* 3. Get the president a taller hat
-		* 5. DON'T LET THE CHILDREN SLEEP.
-		*/
-		if(Math.abs(this.game.baatar.x - this.x) > 4) {
-			//sanitizing input (why is no press = undefined?  not false?)
-			this.d = this.game.baatar.x > this.x;
-			this.a = this.game.baatar.x < this.x;
-			//add or subtract from hspeed depending on right/left
-			this.hspeed += ((+this.d * this.HACCEL) - (+this.a * this.HACCEL));
-		} else if(Math.abs(this.hspeed) < this.HDECCEL) {
-			//if hspeed is < HDECCEL, we dont want to subtract from it,
-			//cause that would mean slight backwards acceleration from decceleration, which is jank.
-			this.hspeed = 0;
-		} else if(this.hspeed != 0) {
-			//subtracts decceleration from hspeed if hspeed positive, else adds it.
-			this.hspeed -= (+this.d * this.HDECCEL) - (+this.a * this.HDECCEL);
-		}
-		
-		if(Math.abs(this.game.baatar.y - this.y) > 4) {
-			//sanitizing input (why is no press = undefined?  not false?)
-			this.s = this.game.baatar.y > this.y;
-			this.w = this.game.baatar.y < this.y;
-			//add or subtract from hspeed depending on right/left
-			this.vspeed += ((+this.s * this.VACCEL) - (+this.w * this.VACCEL));
-		} else if(Math.abs(this.vspeed) < this.VDECCEL) {
-			//if hspeed is < HDECCEL, we dont want to subtract from it,
-			//cause that would mean slight backwards acceleration from decceleration, which is jank.
-			this.vspeed = 0;
-		} else if(this.vspeed != 0) {
-			//subtracts decceleration from hspeed if hspeed positive, else adds it.
-			this.vspeed -= (+this.s * this.VDECCEL) - (+this.w * this.VDECCEL);
-		}
+	var behavID = this.analyze();
+	
+	switch (behavID) {
+		case 1: 
+			this.walkTowardsTarget(this.game.baatar); 
+			break;
+		case 0: 
+		default: 
+			this.ceaseMovement();
+			break;
 	}
-	//handling top speed
-	if(Math.abs(this.hspeed) > this.MAX_HSPEED) 
-		this.hspeed = this.MAX_HSPEED * Math.sign(this.hspeed);
-	this.x += this.hspeed;
-	if(Math.abs(this.vspeed) > this.MAX_VSPEED) 
-		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
-	this.y += this.vspeed;
+	
+	this.unconditionalOperations();
+}
+
+Mob.prototype.analyze = function() {
+	if(this.game.baatar.hp <= 0) return 0;
+	else return 1;
+	return 0;
 }
 
 Mob.prototype.draw = function(ctx) {
@@ -119,10 +75,80 @@ Mob.prototype.hit = function(damage) {
 	console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
-//proof of concept
-class Thing extends Mob {
-	constructor(game, x, y, mob_type, butt) {
-		super(game, x, y, mob_type);
-		this.bum = butt;
+Mob.prototype.walkTowardsTarget = function(target) {
+	//RESOLVE CURRENT MAX SPEEDS
+	// this code changes max speeds to fix the thing where up and right = faster than up or right
+	// (there has to be a better way to do this?)
+	// update: tried to improve by checking if its already right before assigning
+	if(Math.abs(target.x - this.x) > 4 && Math.abs(target.y - this.y) > 4 && this.MAX_HSPEED != this.MOVE_SPEED * 0.707) {
+		this.MAX_HSPEED = this.MOVE_SPEED * 0.707;	// 0.707^2 + 0.707^2 = 1^2
+		this.MAX_VSPEED = this.MOVE_SPEED * 0.707;
+		this.HACCEL = this.MOVE_ACCEL * 0.707;
+		this.VACCEL = this.MOVE_ACCEL * 0.707;
+	} else if(this.MAX_HSPEED != this.MOVE_SPEED) {
+		this.MAX_HSPEED = this.MOVE_SPEED;
+		this.MAX_VSPEED = this.MOVE_SPEED;
+		this.HACCEL = this.MOVE_ACCEL;
+		this.VACCEL = this.MOVE_ACCEL;
 	}
+	this.HDECCEL = this.HACCEL;
+	this.VDECCEL = this.VACCEL;
+	
+	//RESOLVE DESIRED DIRECTION OF MOVEMENT
+	// -> CALCULATE ACCELERATION AND APPLY TO SPEED
+	if(Math.abs(target.x - this.x) > 4) {
+		//sanitizing input (why is no press = undefined?  not false?)
+		this.d = target.x > this.x;
+		this.a = target.x < this.x;
+		//add or subtract from hspeed depending on right/left
+		this.hspeed += ((+this.d * this.HACCEL) - (+this.a * this.HACCEL));
+	} else if(Math.abs(this.hspeed) < this.HDECCEL) {
+		//if hspeed is < HDECCEL, we dont want to subtract from it,
+		//cause that would mean slight backwards acceleration from decceleration, which is jank.
+		this.hspeed = 0;
+	} else if(this.hspeed != 0) {
+		//subtracts decceleration from hspeed if hspeed positive, else adds it.
+		this.hspeed -= (+this.d * this.HDECCEL) - (+this.a * this.HDECCEL);
+	}
+	
+	if(Math.abs(target.y - this.y) > 4) {
+		//sanitizing input (why is no press = undefined?  not false?)
+		this.s = target.y > this.y;
+		this.w = target.y < this.y;
+		//add or subtract from hspeed depending on right/left
+		this.vspeed += ((+this.s * this.VACCEL) - (+this.w * this.VACCEL));
+	} else if(Math.abs(this.vspeed) < this.VDECCEL) {
+		//if hspeed is < HDECCEL, we dont want to subtract from it,
+		//cause that would mean slight backwards acceleration from decceleration, which is jank.
+		this.vspeed = 0;
+	} else if(this.vspeed != 0) {
+		//subtracts decceleration from hspeed if hspeed positive, else adds it.
+		this.vspeed -= (+this.s * this.VDECCEL) - (+this.w * this.VDECCEL);
+	}
+}
+
+Mob.prototype.ceaseMovement = function() {
+	this.MAX_HSPEED = this.MOVE_SPEED;
+	this.MAX_VSPEED = this.MOVE_SPEED;
+	this.HACCEL = this.MOVE_ACCEL;
+	this.VACCEL = this.MOVE_ACCEL;
+	this.HDECCEL = this.HACCEL;
+	this.VDECCEL = this.VACCEL;
+	this.w = this.a = this.s = this.d = false;
+	this.hspeed -= Math.sign(this.hspeed) * this.HDECCEL;
+	if(Math.abs(this.hspeed) < this.HDECCEL) 
+		this.hspeed = 0;
+	this.vspeed -= Math.sign(this.vspeed) * this.VDECCEL;
+	if(Math.abs(this.vspeed) < this.VDECCEL) 
+		this.vspeed = 0;
+}
+
+Mob.prototype.unconditionalOperations = function() {
+	//BOUND TOP SPEED, APPLY SPEED TO POSITION
+	if(Math.abs(this.hspeed) > this.MAX_HSPEED) 
+		this.hspeed = this.MAX_HSPEED * Math.sign(this.hspeed);
+	this.x += this.hspeed;
+	if(Math.abs(this.vspeed) > this.MAX_VSPEED) 
+		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
+	this.y += this.vspeed;
 }
