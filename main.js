@@ -54,14 +54,22 @@ Animation.prototype.isDone = function () {
 
 var ASSET_MANAGER = new AssetManager();
 
-ASSET_MANAGER.queueDownload("./img/baatar_temp.png");
-ASSET_MANAGER.queueDownload("./img/tile_temp.png");
-ASSET_MANAGER.queueDownload("./img/floor_temp.png");
-ASSET_MANAGER.queueDownload("./img/mob_temp.png");
-ASSET_MANAGER.queueDownload("./img/cursor_temp.png");
-ASSET_MANAGER.queueDownload("./img/bullet_temp.png");
-ASSET_MANAGER.queueDownload("./img/hp_bar_holder_temp.png");
-ASSET_MANAGER.queueDownload("./img/hp_bar_vial_temp.png");
+asset_list = [
+	"baatar_temp",
+	"tile_temp",
+	"floor_temp",
+	"mob_temp",
+	"mob_temp_alt00",
+	"mob_temp_alt01",
+	"mob_temp_alt02",
+	"mob_temp_hurt",
+	"cursor_temp",
+	"bullet_temp",
+	"hp_bar_holder_temp",
+	"hp_bar_vial_temp"
+];
+
+asset_list.forEach(asset => ASSET_MANAGER.queueDownload("./img/" + asset + ".png"));
 
 
 ASSET_MANAGER.downloadAll(function () {
