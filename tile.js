@@ -94,7 +94,7 @@ class HalfTile extends Tile {
 		//all xy coords are automatically converted to the 64 unit grid
 		// xy: 2,3 = 128,192
 		super(game, img, imgX, imgY, x, y);
-		console.log(img, this.width);
+		//console.log(img, this.width);
 		
 		//collision specifics suite
 		//these are different than Tile's, but I dont know why. Too complicated to figure out
