@@ -54,7 +54,7 @@ Animation.prototype.isDone = function () {
 
 var ASSET_MANAGER = new AssetManager();
 
-asset_list = [
+asset_list = [ //this is a list of all assets to download. it's assumed they'll all be of form ~/img/*.png
 	"baatar_temp",
 	"tile_temp",
 	"floor_temp",

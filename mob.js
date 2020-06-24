@@ -9,6 +9,7 @@ function Mob(game, x, y, mob_type) {
 	this.width = 32; this.height = 64;
 	this.anim_def = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
 	this.anim_hurt = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 128, 0, 32, 64, 1, 1, true, false);
+	this.anim_still = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 64, 0, 32, 64, 1, 1, true, false);
 	this.mob_type = this.name = mob_type;
 	this.team = "enemy";
 	
@@ -34,7 +35,7 @@ function Mob(game, x, y, mob_type) {
 	
 	//list of vars for timers used in this mob's behaviors
 	this.timer = [0,0,0];
-	this.timer_init = [60,60,45];
+	this.TIMER_INIT = [400,100,45];
 }
 
 Mob.prototype.update = function() {
@@ -45,9 +46,9 @@ Mob.prototype.update = function() {
 		return;
 	}
 	
-	var behavID = this.analyze();
+	var behav_ID = this.analyze();
 	
-	switch (behavID) {
+	switch (behav_ID) {
 		case 1: 
 			this.walkTowardsTarget(this.game.baatar); 
 			break;
@@ -61,13 +62,14 @@ Mob.prototype.update = function() {
 }
 
 Mob.prototype.analyze = function() {
-	if(this.game.baatar.hp <= 0) return 0;
+	if(this.game.baatar.hp <= 0 || this.timer[0] == 0) return 0;
 	else return 1;
 	return 0;
 }
 
 Mob.prototype.draw = function(ctx) {
 	if(this.timer[2] != 0) this.anim_hurt.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+	else if(this.timer[0] == 0) this.anim_still.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 	else this.anim_def.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }
 
@@ -78,8 +80,8 @@ Mob.prototype.setFreeXY = function(x, y) {
 
 Mob.prototype.hit = function(damage) {
 	this.hp -= damage;
-	this.timer[2] = this.timer_init[2];
-	console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
+	this.timer[2] = this.TIMER_INIT[2];
+	//console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
 Mob.prototype.walkTowardsTarget = function(target) {
@@ -159,5 +161,12 @@ Mob.prototype.unconditionalOperations = function() {
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
 	
-	for(var i = 0; i < this.timer.length; i++) if(this.timer[i] > 0) this.timer[i]--;
+	//timer setting
+	if(this.timer[0] == 0 && this.timer[1] == 0) {
+		this.timer[0] = this.TIMER_INIT[0];
+		this.timer[1] = this.TIMER_INIT[1];
+	}
+	if(this.timer[0] == 0) this.timer[1]--;
+	else this.timer[0]--;
+	if(this.timer[2] > 0) this.timer[2]--;
 }
