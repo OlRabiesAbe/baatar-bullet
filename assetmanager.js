@@ -33,7 +33,7 @@ AssetManager.prototype.downloadAll = function (callback) {
             that.errorCount++;
             if (that.isDone()) callback();
         });
-
+		
         img.src = path;
         this.cache[path] = img;
     }

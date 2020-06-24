@@ -20,7 +20,7 @@ SceneManager.prototype.setScene = function(scene_name) {
 	this.game.hud_elements = scene.hud_elements;
 	this.game.all_entities = scene.all_entities;
 	this.game.current_scene = scene_name;
-	console.log(scene_name + " successfully loaded");
+	//console.log(scene_name + " successfully loaded");
 	for(var i = 0; i < scene.entities.length; i++) {
 		if (scene.entities[i] instanceof Baatar) this.game.baatar = scene.entities[i];
 	}
@@ -48,7 +48,7 @@ function Scene(game, ctx, scene_name, baatar, entities = [], floor_tiles = [], t
 //entities are added in the form of addEntity(theEntityItself, whatTypeItIs)
 //currently valid types are entity tile floor roof & hud
 Scene.prototype.addEntity = function (entity, string) {
-    console.log(this.scene_name + " : " + ' attempting to add a(n) ' + string + ' entity');
+    //console.log(this.scene_name + " : " + ' attempting to add a(n) ' + string + ' entity');
 	switch(string) {
 		case "entity":
 			this.entities.push(entity);

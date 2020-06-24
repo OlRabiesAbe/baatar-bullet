@@ -7,7 +7,8 @@ function Mob(game, x, y, mob_type) {
 	// xy: 2,3 = 128,192
 	this.x = (x * 64) + 32; this.y = (y + 1) * 64;
 	this.width = 32; this.height = 64;
-	this.animation = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
+	this.anim_def = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 0, 0, 32, 64, 1, 1, true, false);
+	this.anim_hurt = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 128, 0, 32, 64, 1, 1, true, false);
 	this.mob_type = this.name = mob_type;
 	this.team = "enemy";
 	
@@ -30,6 +31,10 @@ function Mob(game, x, y, mob_type) {
 	
 	//suite of variables for hp
 	this.hp = this.MAX_HP;
+	
+	//list of vars for timers used in this mob's behaviors
+	this.timer = [0,0,0];
+	this.timer_init = [60,60,45];
 }
 
 Mob.prototype.update = function() {
@@ -62,7 +67,8 @@ Mob.prototype.analyze = function() {
 }
 
 Mob.prototype.draw = function(ctx) {
-	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+	if(this.timer[2] != 0) this.anim_hurt.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+	else this.anim_def.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }
 
 // setter func to move a [whatever this is] off the grid
@@ -72,6 +78,7 @@ Mob.prototype.setFreeXY = function(x, y) {
 
 Mob.prototype.hit = function(damage) {
 	this.hp -= damage;
+	this.timer[2] = this.timer_init[2];
 	console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
@@ -151,4 +158,6 @@ Mob.prototype.unconditionalOperations = function() {
 	if(Math.abs(this.vspeed) > this.MAX_VSPEED) 
 		this.vspeed = this.MAX_VSPEED * Math.sign(this.vspeed);
 	this.y += this.vspeed;
+	
+	for(var i = 0; i < this.timer.length; i++) if(this.timer[i] > 0) this.timer[i]--;
 }
