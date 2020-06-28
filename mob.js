@@ -1,11 +1,16 @@
 
-// ╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬
+// ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██
 //	MOB CLASS
 //	≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 //	Entity
 //	╚ Mob
-// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██
 Mob.prototype = new Entity();
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Mob's Constructor ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ */
 function Mob(game, x, y, mob_type) {
 	this.game = game;
 	//all xy coords are automatically converted to the 64 unit grid
@@ -45,7 +50,12 @@ function Mob(game, x, y, mob_type) {
 	this.timer = [400,100,0];
 	this.TIMER_INIT = [400,100,45];
 }
-
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Mob Update ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		Called once(?) per frame
+ */
 Mob.prototype.update = function() {
 	
 	if(this.hp <= 0){
@@ -54,8 +64,10 @@ Mob.prototype.update = function() {
 		return;
 	}
 	
+	//analyze call
 	var behav_ID = this.analyze();
 	
+	//behavior switch
 	switch (behav_ID) {
 		case 1: 
 			this.walkTowardsTarget(this.game.baatar); 
@@ -72,12 +84,28 @@ Mob.prototype.update = function() {
 	this.unconditionalOperations();
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Mob Analyze ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		Basically just a series of if-statements to discern
+ 		what this mob should be doing this frame.
+		Returns an int called a behav_ID that is fed into the behavior switch statement
+		that resolves it to an appropriate method call.
+ */
 Mob.prototype.analyze = function() {
 	if(this.timer[0] == 0 && this.timer[1] < 20 && this.timer[1]%5 == 0) return 2;
 	if(this.game.baatar.hp <= 0 || this.timer[0] == 0) return 0;
 	return 1;
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Walk Towards Target ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		As advertized, it causes this to walk at the passed target.
+		Despite the simple goal, this method is ungodly complicated.
+ */
 Mob.prototype.walkTowardsTarget = function(target) {
 	//RESOLVE CURRENT MAX SPEEDS
 	// this code changes max speeds to fix the thing where up and right = faster than up or right
@@ -114,6 +142,8 @@ Mob.prototype.walkTowardsTarget = function(target) {
 		this.hspeed -= (+this.d * this.HDECCEL) - (+this.a * this.HDECCEL);
 	}
 	
+	//RESOLVE DESIRED DIRECTION OF MOVEMENT
+	// -> CALCULATE ACCELERATION AND APPLY TO SPEED
 	if(Math.abs(target.y - this.y) > 4) {
 		//sanitizing input (why is no press = undefined?  not false?)
 		this.s = target.y > this.y;
@@ -130,10 +160,25 @@ Mob.prototype.walkTowardsTarget = function(target) {
 	}
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		┴┬┴┬ Fire Bullet ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		Can be called by update's behavior switch in case 2,
+		just shoots at the passed target with the passed bulletspawner.
+		Is only a method for code niceness purposes, as it's a single line function.
+ */
 Mob.prototype.fireBullet = function(target, gun) {
 	gun.fire(gun.parseTargetCoords(target));
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Cease Movement ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		This is the behavior switch's case 0 and default.
+		Simply handles natural deeceleration and does nothing else.
+ */
 Mob.prototype.ceaseMovement = function() {
 	this.MAX_HSPEED = this.MOVE_SPEED;
 	this.MAX_VSPEED = this.MOVE_SPEED;
@@ -150,6 +195,14 @@ Mob.prototype.ceaseMovement = function() {
 		this.vspeed = 0;
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Mob's Unconditional Operations ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		This func is called once at the end of every update call.
+		Does things like enforcing this mob's speedlimits and reseting
+		timers.
+ */
 Mob.prototype.unconditionalOperations = function() {
 	//BOUND TOP SPEED, APPLY SPEED TO POSITION
 	if(Math.abs(this.hspeed) > this.MAX_HSPEED) 
@@ -169,13 +222,25 @@ Mob.prototype.unconditionalOperations = function() {
 	if(this.timer[2] > 0) this.timer[2]--;
 }
 
-
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Hit ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		Causes this to lose hp and sets a timer 
+		to display a hurt animation.
+ */
 Mob.prototype.hit = function(damage) {
 	this.hp -= damage;
 	this.timer[2] = this.TIMER_INIT[2];
 	//console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Draw ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		It's Mob's draw.
+ */
 Mob.prototype.draw = function(ctx) {
 	if(this.timer[2] != 0) this.anim_hurt.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 	else if(this.timer[0] == 0) this.anim_still.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
@@ -184,14 +249,18 @@ Mob.prototype.draw = function(ctx) {
 
 
 /**
- * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
- *	UTILITY FUNCTIONS, NOT USED BY THIS CLASS IN REGULAR EXECUTION
- * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
- */
+  ╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗
+  ╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝
+ 	UTILITY FUNCTIONS, NOT USED BY THIS CLASS IN REGULAR EXECUTION
+*/
 
-// setter func to move a [whatever this is] off the grid
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Set Free XY ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		Allows the dev to give a Mob an XY not a multiple of 64.
+ */
 Mob.prototype.setFreeXY = function(x, y) {
 	this.x = x; this.y = y;
 }
-// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
-// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██
