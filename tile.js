@@ -21,6 +21,13 @@
 	}
 }*/
 
+// ╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬
+//  TILE CLASS
+//	≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+//	Entity
+//	╚ Tile
+//	  ╚ Half Tile
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
 class Tile extends Entity {
 	constructor(game, img, imgX, imgY, x, y) {
 		//all xy coords are automatically converted to the 64 unit grid
@@ -88,7 +95,16 @@ class Tile extends Entity {
 		this.x = x; this.y = y;
 	}
 }
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
 
+// ╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬
+//	HALF TILE CLASS
+//	≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+//	Entity
+//	╚ Tile
+//	  ╚ Half Tile
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
 class HalfTile extends Tile {
 	constructor(game, img, imgX, imgY, x, y) {
 		//all xy coords are automatically converted to the 64 unit grid
@@ -145,16 +161,6 @@ class HalfTile extends Tile {
 		else if (entity.x < this.x || entity.x > this.x + this.width) {}
 		else entity.remove_from_world = true;
 	}
-
-	/*update(ctx) { //handle collision on all entities
-		for (var i = 0; i < this.game.entities.length; i++) this.handleEntityCollision(this.game.entities[i]);
-		for (var i = 0; i < this.game.bullets.length; i++) this.handleBulletCollision(this.game.bullets[i]);
-	}
-
-	draw(ctx) {this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y, 1);}
-
-	// setter func to move a [whatever this is] off the grid
-	setFreeXY(x, y) {
-		this.x = x; this.y = y;
-	}*/
 }
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>

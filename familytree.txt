@@ -1,0 +1,62 @@
+Entity
+	╠ Baatar
+	╠ Mob
+	╠ Tile
+	║   ╚ Half Tile
+	╠ Bullet Spawner
+	╠ Bullet
+	╠ Cursor
+	╚ Hp Bar
+	
+Animation
+
+Timer
+
+Game Engine
+
+Asset Manager
+
+pRandom
+
+Scene Manager
+
+Scene
+
+
+
+
+
+
+
+
+
+
+// ╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬
+// - CLASS
+//	≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+// -
+//	╠ -
+//	║   ╚ -
+//	╚ -
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+
+
+
+
+/**
+ * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
+ *	-
+ * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
+ */
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~
+~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~~code~

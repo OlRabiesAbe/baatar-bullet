@@ -1,5 +1,11 @@
-Mob.prototype = new Entity();
 
+// ╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬==╬==╬==¤==╬==╬
+//	MOB CLASS
+//	≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+//	Entity
+//	╚ Mob
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+Mob.prototype = new Entity();
 function Mob(game, x, y, mob_type) {
 	this.game = game;
 	//all xy coords are automatically converted to the 64 unit grid
@@ -70,23 +76,6 @@ Mob.prototype.analyze = function() {
 	if(this.timer[0] == 0 && this.timer[1] < 20 && this.timer[1]%5 == 0) return 2;
 	if(this.game.baatar.hp <= 0 || this.timer[0] == 0) return 0;
 	return 1;
-}
-
-Mob.prototype.draw = function(ctx) {
-	if(this.timer[2] != 0) this.anim_hurt.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
-	else if(this.timer[0] == 0) this.anim_still.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
-	else this.anim_def.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
-}
-
-// setter func to move a [whatever this is] off the grid
-Mob.prototype.setFreeXY = function(x, y) {
-	this.x = x; this.y = y;
-}
-
-Mob.prototype.hit = function(damage) {
-	this.hp -= damage;
-	this.timer[2] = this.TIMER_INIT[2];
-	//console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
 }
 
 Mob.prototype.walkTowardsTarget = function(target) {
@@ -179,3 +168,30 @@ Mob.prototype.unconditionalOperations = function() {
 	else this.timer[0]--;
 	if(this.timer[2] > 0) this.timer[2]--;
 }
+
+
+Mob.prototype.hit = function(damage) {
+	this.hp -= damage;
+	this.timer[2] = this.TIMER_INIT[2];
+	//console.log(this.name + ", of clan " + this.team + ": ow, on a scale of 0 to " + this.MAX_HP + " that hurt about a " + damage);
+}
+
+Mob.prototype.draw = function(ctx) {
+	if(this.timer[2] != 0) this.anim_hurt.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+	else if(this.timer[0] == 0) this.anim_still.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+	else this.anim_def.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
+}
+
+
+/**
+ * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
+ *	UTILITY FUNCTIONS, NOT USED BY THIS CLASS IN REGULAR EXECUTION
+ * []==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]==||==[]==[]
+ */
+
+// setter func to move a [whatever this is] off the grid
+Mob.prototype.setFreeXY = function(x, y) {
+	this.x = x; this.y = y;
+}
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
+// <>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>==<<>>==<>==<>
