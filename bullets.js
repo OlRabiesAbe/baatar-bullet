@@ -21,6 +21,9 @@ BulletSpawner.prototype.fire = function(targ_coords) {
 			break;
 	}
 }
+BulletSpawner.prototype.parseTargetCoords = function(target) {
+	return {x:target.x, y:target.y};
+}
 
 
 Bullet.prototype = new Entity();

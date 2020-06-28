@@ -12,6 +12,7 @@ function Mob(game, x, y, mob_type) {
 	this.anim_still = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 64, 0, 32, 64, 1, 1, true, false);
 	this.mob_type = this.name = mob_type;
 	this.team = "enemy";
+	this.gun = new BulletSpawner(game, this, speed = 1);
 	
 	//hyper centralized variable suite so i can make tweaks very easily
 	this.MOVE_SPEED = 1/*maxperframe*/;
@@ -34,7 +35,8 @@ function Mob(game, x, y, mob_type) {
 	this.hp = this.MAX_HP;
 	
 	//list of vars for timers used in this mob's behaviors
-	this.timer = [0,0,0];
+	//[walk, sit, hurt display]
+	this.timer = [400,100,0];
 	this.TIMER_INIT = [400,100,45];
 }
 
@@ -52,6 +54,9 @@ Mob.prototype.update = function() {
 		case 1: 
 			this.walkTowardsTarget(this.game.baatar); 
 			break;
+		case 2:
+			this.fireBullet(this.game.baatar, this.gun);
+			break;
 		case 0: 
 		default: 
 			this.ceaseMovement();
@@ -62,9 +67,9 @@ Mob.prototype.update = function() {
 }
 
 Mob.prototype.analyze = function() {
+	if(this.timer[0] == 0 && this.timer[1] < 20 && this.timer[1]%5 == 0) return 2;
 	if(this.game.baatar.hp <= 0 || this.timer[0] == 0) return 0;
-	else return 1;
-	return 0;
+	return 1;
 }
 
 Mob.prototype.draw = function(ctx) {
@@ -134,6 +139,10 @@ Mob.prototype.walkTowardsTarget = function(target) {
 		//subtracts decceleration from hspeed if hspeed positive, else adds it.
 		this.vspeed -= (+this.s * this.VDECCEL) - (+this.w * this.VDECCEL);
 	}
+}
+
+Mob.prototype.fireBullet = function(target, gun) {
+	gun.fire(gun.parseTargetCoords(target));
 }
 
 Mob.prototype.ceaseMovement = function() {
