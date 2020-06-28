@@ -63,8 +63,6 @@ OST:
 
 Plan as it stands:
 	
-	-teach enemies to shoot you
-	
 	-implement a tile array that functions with gameengine and scenemanager
 	
 	-research the prospect of full-screening the game, or else implement camera
