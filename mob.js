@@ -91,7 +91,7 @@ Mob.prototype.update = function() {
  		Basically just a series of if-statements to discern
  		what this mob should be doing this frame.
 		Returns an int called a behav_ID that is fed into the behavior switch statement
-		that resolves it to an appropriate method call.
+		in update that resolves it to an appropriate method call.
  */
 Mob.prototype.analyze = function() {
 	if(this.timer[0] == 0 && this.timer[1] < 20 && this.timer[1]%5 == 0) return 2;
@@ -180,6 +180,7 @@ Mob.prototype.fireBullet = function(target, gun) {
 		Simply handles natural deeceleration and does nothing else.
  */
 Mob.prototype.ceaseMovement = function() {
+	// ISSUE: should this resetting happen every ceaseMovement?
 	this.MAX_HSPEED = this.MOVE_SPEED;
 	this.MAX_VSPEED = this.MOVE_SPEED;
 	this.HACCEL = this.MOVE_ACCEL;

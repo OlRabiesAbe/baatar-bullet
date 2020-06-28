@@ -5,6 +5,11 @@
 //	Entity
 //	╚ Bullet Spawner
 // ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Bullet Constructor ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ */
 BulletSpawner.prototype = new Entity();
 function BulletSpawner(game, owner = null, type = "single straight", speed = 4) {
 	this.game = game;
@@ -12,6 +17,13 @@ function BulletSpawner(game, owner = null, type = "single straight", speed = 4) 
 	this.owner = owner;
 	this.speed = speed/4;
 }
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Fire ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+	Takes a tuple containing ints .x and .y, 
+	and spawns a bullet aimed at them.
+ */
 BulletSpawner.prototype.fire = function(targ_coords) {
 	if(this.owner == null) return;
 	
@@ -33,6 +45,13 @@ BulletSpawner.prototype.fire = function(targ_coords) {
   ╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝
  	UTILITY FUNCTIONS, NOT USED BY THIS CLASS IN REGULAR EXECUTION
  */
+ /**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Parse Target Coords ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+	Takes a target and gets assebles a tuple 
+	containing the target's .x and .y
+ */
 BulletSpawner.prototype.parseTargetCoords = function(target) {
 	return {x:target.x, y:target.y};
 }
@@ -52,6 +71,17 @@ BulletSpawner.prototype.parseTargetCoords = function(target) {
 //	Entity
 //	╚ Bullet
 // ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Bullet Construcotr ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+	Constructs a bullet. Takes a game, owner, bearing, and pattern.
+	Game is just so it can access the game engine.
+	Owner tells it what it should and shouldn't collide with.
+	Bearing is a tuple contining a .x and .y, which the bullet 
+		adds to it's x and y every update call.
+	Pattern does nothing atm.
+ */
 Bullet.prototype = new Entity();
 function Bullet(game, owner, bearing, pattern = "straight") {
 	this.game = game;
@@ -64,9 +94,28 @@ function Bullet(game, owner, bearing, pattern = "straight") {
 	
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Bullet Update ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ */
+Bullet.prototype.update = function() {
+	this.x += this.bearing.x;
+	this.y += this.bearing.y;
+	if(Math.abs(this.owner.x - this.x) > 2666 || Math.abs(this.owner.y - this.y) > 2666) this.remove_from_world = true;
+	if(!this.remove_from_world) 
+		for (var i = 0; i < this.game.entities.length; i++) this.handleEntityCollision(this.game.entities[i]);
+}
+
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Bullet Handle Entitiy Colison ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		-
+ */
 Bullet.prototype.handleEntityCollision = function(entity) {
 	
-	if(entity.team == "enemy"){
+	if(entity.team != this.owner.team){
 		if(this.y < entity.y - (entity.height*.66) || this.y > entity.y + (entity.height*1.33)) {}
 		else if (this.x < entity.x + (entity.width*.66) || this.x > entity.x + (entity.width*1.33)) {}
 		else {
@@ -77,14 +126,12 @@ Bullet.prototype.handleEntityCollision = function(entity) {
 	
 }
 
-Bullet.prototype.update = function() {
-	this.x += this.bearing.x;
-	this.y += this.bearing.y;
-	if(Math.abs(this.owner.x - this.x) > 2666 || Math.abs(this.owner.y - this.y) > 2666) this.remove_from_world = true;
-	if(!this.remove_from_world) 
-		for (var i = 0; i < this.game.entities.length; i++) this.handleEntityCollision(this.game.entities[i]);
-}
-
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Draw ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+	Draw.
+ */
 Bullet.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x - 8, this.y - 8);
 }
