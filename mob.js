@@ -23,7 +23,7 @@ function Mob(game, x, y, mob_type) {
 	this.anim_still = new Animation(ASSET_MANAGER.getAsset("./img/mob_temp.png"), 64, 0, 32, 64, 1, 1, true, false);
 	this.mob_type = this.name = mob_type;
 	this.team = "enemy";
-	this.gun = new BulletSpawner(game, this, speed = 1);
+	this.gun = new BulletSpawner(game, this, speed = 0.25);
 	
 	//hyper centralized variable suite so i can make tweaks very easily
 	this.MOVE_SPEED = 1/*maxperframe*/;
@@ -54,7 +54,7 @@ function Mob(game, x, y, mob_type) {
  	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
  		┴┬┴┬ Mob Update ┴┬┴┬
 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- 		Called once(?) per frame
+ 		Called four times per frame
  */
 Mob.prototype.update = function() {
 	
