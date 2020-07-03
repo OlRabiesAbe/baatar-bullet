@@ -117,8 +117,10 @@ ASSET_MANAGER.downloadAll(function () {
 		}
 	}
 	
-	var mob = new Mob(game, 18, 9, "test");
-	test_scene.addEntity(mob, "entity");
+	//var mob = new Mob(game, 18, 9, "test");
+	//test_scene.addEntity(mob, "entity");
+	var big_mob = new BigMob(game, 12, 9, "testor");
+	test_scene.addEntity(big_mob, "entity");
 	var cursor = new Cursor(game);
 	test_scene.addEntity(cursor, "hud");
 	var baatar = new Baatar(game, 1, 1, cursor);

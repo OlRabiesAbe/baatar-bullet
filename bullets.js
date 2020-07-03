@@ -115,13 +115,9 @@ Bullet.prototype.update = function() {
  */
 Bullet.prototype.handleEntityCollision = function(entity) {
 	
-	if(entity.team != this.owner.team){
-		if(this.y < entity.y - (entity.height*.66) || this.y > entity.y + (entity.height*1.33)) {}
-		else if (this.x < entity.x + (entity.width*.66) || this.x > entity.x + (entity.width*1.33)) {}
-		else {
-			entity.hit(40);
-			this.remove_from_world = true;
-		}
+	if(entity.team != this.owner.team && entity.isHit(this)){
+		entity.hit(40);
+		this.remove_from_world = true;
 	}
 	
 }
@@ -133,6 +129,6 @@ Bullet.prototype.handleEntityCollision = function(entity) {
 	Draw.
  */
 Bullet.prototype.draw = function(ctx) {
-	this.animation.drawFrame(this.game.clockTick, ctx, this.x - 8, this.y - 8);
+	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }
 // ██╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬==╬==╬==■==╬==╬██

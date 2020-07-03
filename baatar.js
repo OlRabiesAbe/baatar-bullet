@@ -121,6 +121,29 @@ Baatar.prototype.update = function() {
 	} else if(this.shoot_timer != this.TIME_BETWEEN_SHOTS) this.shoot_timer++;
 }
 
+/**
+ 	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 		┴┬┴┬ Baatar Is Hit ┴┬┴┬
+	░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+		Takes a an entitiy descendant and
+		returns a boolean stating whether the entdec
+		is currently touching this. Intended for bullet collision
+		purposes.
+ */
+Baatar.prototype.isHit = function(hitter) {
+	return (
+		(hitter.x + hitter.width/2 > this.x - this.width/2 && hitter.x + hitter.width/2 < this.x + this.width/2)
+		|| 
+		(hitter.x - hitter.width/2 > this.x - this.width/2 && hitter.x - hitter.width/2 < this.x + this.width/2)
+	)
+	&&
+	(
+		(hitter.y > this.y - this.height && hitter.y < this.y)
+		|| 
+		(hitter.y - hitter.width > this.y - this.height && hitter.y - hitter.width < this.y)
+	);
+}
+
 Baatar.prototype.draw = function(ctx) {
 	this.animation.drawFrame(this.game.clockTick, ctx, this.x - (this.width/2), this.y - this.height);
 }
